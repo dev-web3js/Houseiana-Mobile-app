@@ -1,54 +1,34 @@
-import apiClient from '../services/apiClient';
+import mobileApiService from '../services/api';
 
+// This service now delegates to the comprehensive mobileApiService
 class AuthService {
   async login(credentials) {
-    try {
-      const response = await apiClient.post('/auth/login', credentials);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.login(credentials);
   }
 
   async register(userData) {
-    try {
-      const response = await apiClient.post('/auth/register', userData);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.register(userData);
   }
 
   async validateToken(token) {
-    try {
-      const response = await apiClient.get('/auth/profile', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.getCurrentUser();
   }
 
   async refreshToken() {
-    try {
-      const response = await apiClient.post('/auth/refresh');
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    // This would be handled automatically by the API interceptors
+    return mobileApiService.getCurrentUser();
   }
 
-  handleError(error) {
-    if (error.response) {
-      return new Error(error.response.data.message || 'Authentication failed');
-    } else if (error.request) {
-      return new Error('Network error. Please check your connection.');
-    } else {
-      return new Error('An unexpected error occurred');
-    }
+  async logout() {
+    return mobileApiService.logout();
+  }
+
+  async forgotPassword(email) {
+    return mobileApiService.forgotPassword(email);
+  }
+
+  async resetPassword(token, password) {
+    return mobileApiService.resetPassword(token, password);
   }
 }
 

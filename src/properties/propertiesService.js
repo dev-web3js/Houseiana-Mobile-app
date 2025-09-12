@@ -1,87 +1,50 @@
-import apiClient from '../services/apiClient';
+import mobileApiService from '../services/api';
 
+// This service now delegates to the comprehensive mobileApiService
 class PropertiesService {
   async getProperties(filters = {}) {
-    try {
-      const params = new URLSearchParams(filters).toString();
-      const response = await apiClient.get(`/properties?${params}`);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.searchProperties(filters);
   }
 
   async getPropertyById(id) {
-    try {
-      const response = await apiClient.get(`/properties/${id}`);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.getProperty(id);
   }
 
   async createProperty(propertyData) {
-    try {
-      const response = await apiClient.post('/properties', propertyData);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.createProperty(propertyData);
   }
 
   async updateProperty(id, propertyData) {
-    try {
-      const response = await apiClient.patch(`/properties/${id}`, propertyData);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.updateProperty(id, propertyData);
   }
 
   async deleteProperty(id) {
-    try {
-      const response = await apiClient.delete(`/properties/${id}`);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.deleteProperty(id);
   }
 
   async toggleFavorite(propertyId) {
-    try {
-      const response = await apiClient.post(`/properties/${propertyId}/favorite`);
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.toggleFavorite(propertyId);
   }
 
   async getFavorites() {
-    try {
-      const response = await apiClient.get('/properties/favorites/my-list');
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.getFavorites();
   }
 
   async getMyProperties() {
-    try {
-      const response = await apiClient.get('/properties/host/my-properties');
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
-    }
+    return mobileApiService.getMyProperties();
   }
 
-  handleError(error) {
-    if (error.response) {
-      return new Error(error.response.data.message || 'Properties operation failed');
-    } else if (error.request) {
-      return new Error('Network error. Please check your connection.');
-    } else {
-      return new Error('An unexpected error occurred');
-    }
+  // Additional methods available through the mobile API service
+  async uploadPropertyImages(imagesData) {
+    return mobileApiService.uploadMultipleImages(imagesData, '/properties/images');
+  }
+
+  async getPropertyReviews(propertyId) {
+    return mobileApiService.getPropertyReviews(propertyId);
+  }
+
+  async createReview(propertyId, bookingId, reviewData) {
+    return mobileApiService.createReview(propertyId, bookingId, reviewData);
   }
 }
 

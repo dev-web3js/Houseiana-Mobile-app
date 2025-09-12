@@ -5,19 +5,36 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {useAuth} from '../auth/AuthContext';
 
+// Auth Screens
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
+
+// Home Screens
 import HomeScreen from '../screens/home/HomeScreen';
 import EnhancedHomeScreen from '../screens/home/EnhancedHomeScreen';
+
+// Property Screens
 import PropertiesScreen from '../screens/properties/PropertiesScreen';
 import AdvancedSearchScreen from '../screens/search/AdvancedSearchScreen';
 import PropertyDetailScreen from '../screens/properties/PropertyDetailScreen';
 import FavoritesScreen from '../screens/properties/FavoritesScreen';
+
+// Booking Screens
+import BookingScreen from '../screens/booking/BookingScreen';
+import BookingConfirmationScreen from '../screens/booking/BookingConfirmationScreen';
+import MyBookingsScreen from '../screens/booking/MyBookingsScreen';
+
+// Profile Screen
 import ProfileScreen from '../screens/profile/ProfileScreen';
+
+// Host Screens
 import HostDashboardScreen from '../screens/host/HostDashboardScreen';
 import AddPropertyScreen from '../screens/host/AddPropertyScreen';
 import MyPropertiesScreen from '../screens/host/MyPropertiesScreen';
 import BookingsScreen from '../screens/host/BookingsScreen';
+
+// Map Screen
+import MapScreen from '../screens/properties/MapScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +59,8 @@ const MainTabs = () => {
             iconName = 'home';
           } else if (route.name === 'Properties') {
             iconName = 'search';
+          } else if (route.name === 'MyBookings') {
+            iconName = 'event-note';
           } else if (route.name === 'Favorites') {
             iconName = 'favorite';
           } else if (route.name === 'Profile') {
@@ -56,6 +75,7 @@ const MainTabs = () => {
       })}>
       <Tab.Screen name="Home" component={EnhancedHomeScreen} />
       <Tab.Screen name="Properties" component={AdvancedSearchScreen} />
+      <Tab.Screen name="MyBookings" component={MyBookingsScreen} options={{title: 'My Trips'}} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -70,11 +90,34 @@ const MainNavigator = () => {
         component={MainTabs}
         options={{headerShown: false}}
       />
+      
+      {/* Property Related Screens */}
       <Stack.Screen
         name="PropertyDetail"
         component={PropertyDetailScreen}
         options={{title: 'Property Details'}}
       />
+      
+      {/* Booking Related Screens */}
+      <Stack.Screen
+        name="Booking"
+        component={BookingScreen}
+        options={{title: 'Book Property'}}
+      />
+      <Stack.Screen
+        name="BookingConfirmation"
+        component={BookingConfirmationScreen}
+        options={{title: 'Booking Confirmed', headerLeft: null}}
+      />
+      
+      {/* Map Screen */}
+      <Stack.Screen
+        name="PropertyMap"
+        component={MapScreen}
+        options={{title: 'Map View'}}
+      />
+      
+      {/* Host Dashboard Screens */}
       <Stack.Screen
         name="HostDashboard"
         component={HostDashboardScreen}
@@ -83,17 +126,17 @@ const MainNavigator = () => {
       <Stack.Screen
         name="AddProperty"
         component={AddPropertyScreen}
-        options={{headerShown: false}}
+        options={{title: 'Add Property'}}
       />
       <Stack.Screen
         name="MyProperties"
         component={MyPropertiesScreen}
-        options={{headerShown: false}}
+        options={{title: 'My Properties'}}
       />
       <Stack.Screen
         name="Bookings"
         component={BookingsScreen}
-        options={{headerShown: false}}
+        options={{title: 'Manage Bookings'}}
       />
     </Stack.Navigator>
   );
