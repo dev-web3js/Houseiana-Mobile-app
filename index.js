@@ -5,7 +5,7 @@ import {name as appName} from './package.json';
 
 // Toggle between main app and Storybook
 // Set to true to view Storybook, false for main app
-const SHOW_STORYBOOK = false;
+const SHOW_STORYBOOK = false;  // false = Main App, true = Storybook
 
 const RootComponent = SHOW_STORYBOOK ? StorybookUIRoot : App;
 
