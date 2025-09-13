@@ -1,14 +1,20 @@
 export const COLORS = {
-  primary: '#2196F3',
-  secondary: '#FF9800',
+  primary: '#FF6B35',        // Cosmic Orange - main brand color
+  secondary: '#F7931E',      // Orange Secondary
+  accent: '#FFB896',         // Cosmic Orange Light
+  background: '#FFF8F5',     // Cosmic Orange Background
+  surface: '#FFFFFF',
   success: '#4CAF50',
   error: '#F44336',
   warning: '#FFC107',
-  text: '#212121',
-  textSecondary: '#757575',
-  background: '#FFFFFF',
-  surface: '#FAFAFA',
-  border: '#E0E0E0',
+  text: '#2D1B12',          // Dark Brown - main text
+  textSecondary: '#8B7355',  // Medium Brown
+  textLight: '#A8956B',      // Light Brown
+  border: '#E8DDD4',         // Light border matching theme
+  overlay: 'rgba(45, 27, 18, 0.5)',
+  // Luxury gradients
+  gradientPrimary: ['#FF6B35', '#F7931E'],
+  gradientLight: ['#FFB896', '#FFF8F5'],
 };
 
 export const SPACING = {
@@ -107,17 +113,125 @@ export const SORT_OPTIONS = [
 ];
 
 export const SCREEN_NAMES = {
-  // Auth
+  // Auth Flow
   LOGIN: 'Login',
   REGISTER: 'Register',
+  RESET_PASSWORD: 'ResetPassword',
+  VERIFY_EMAIL: 'VerifyEmail',
   
-  // Main
+  // Core Pages
   HOME: 'Home',
-  PROPERTIES: 'Properties',
+  SEARCH: 'Search',
   PROPERTY_DETAIL: 'PropertyDetail',
-  FAVORITES: 'Favorites',
-  PROFILE: 'Profile',
+  BOOKING: 'Booking',
+  BOOKING_PAYMENT: 'BookingPayment',
+  BOOKING_CONFIRMATION: 'BookingConfirmation',
   
-  // Main Tabs
+  // User Dashboard
+  DASHBOARD: 'Dashboard',
+  DASHBOARD_WELCOME: 'DashboardWelcome',
+  DASHBOARD_GUEST: 'DashboardGuest',
+  PROFILE: 'Profile',
+  ACCOUNT_SETTINGS: 'AccountSettings',
+  PREFERENCES: 'Preferences',
+  
+  // Host Features
+  BECOME_HOST: 'BecomeHost',
+  BECOME_HOST_REGISTER: 'BecomeHostRegister',
+  HOST_DASHBOARD: 'HostDashboard',
+  HOST_DASHBOARD_WELCOME: 'HostDashboardWelcome',
+  HOST_PROPERTIES: 'HostProperties',
+  HOST_PROPERTIES_CREATE: 'HostPropertiesCreate',
+  HOST_LISTINGS: 'HostListings',
+  HOST_LISTINGS_NEW: 'HostListingsNew',
+  HOST_BOOKINGS: 'HostBookings',
+  HOST_EARNINGS: 'HostEarnings',
+  HOST_PROFILE: 'HostProfile',
+  
+  // Booking & Travel
+  BOOKINGS: 'Bookings',
+  TRIPS: 'Trips',
+  BOOKING_TERMS: 'BookingTerms',
+  
+  // Communication & Social
+  MESSAGES: 'Messages',
+  SAVED: 'Saved',
+  WISHLISTS: 'Wishlists',
+  FAVORITES: 'Favorites',
+  
+  // Administrative & Support
+  HELP: 'Help',
+  KYC_VERIFY: 'KYCVerify',
+  ADMIN_KYC: 'AdminKYC',
+  CO_HOST_ACCEPT: 'CoHostAccept',
+  
+  // Navigation
   MAIN_TABS: 'MainTabs',
+  PROPERTIES: 'Properties',
+  MAP: 'Map',
+};
+
+// Typography following luxury theme
+export const TYPOGRAPHY = {
+  heading: {
+    fontFamily: 'PlayfairDisplay-Bold', // Luxury serif for headings
+    fontWeight: 'bold',
+  },
+  body: {
+    fontFamily: 'Inter-Regular', // Clean sans-serif for body
+    fontWeight: 'normal',
+  },
+  luxury: {
+    fontFamily: 'Montserrat-SemiBold', // Premium sans-serif for accents
+    fontWeight: '600',
+  },
+  hero: {
+    fontSize: 32,
+    fontFamily: 'PlayfairDisplay-Bold',
+    fontWeight: 'bold',
+    color: '#2D1B12',
+    lineHeight: 40,
+  },
+  h1: {
+    fontSize: 24,
+    fontFamily: 'PlayfairDisplay-Bold',
+    fontWeight: 'bold',
+    color: '#2D1B12',
+    lineHeight: 32,
+  },
+  h2: {
+    fontSize: 20,
+    fontFamily: 'PlayfairDisplay-Bold',
+    fontWeight: 'bold',
+    color: '#2D1B12',
+    lineHeight: 28,
+  },
+  h3: {
+    fontSize: 18,
+    fontFamily: 'Montserrat-SemiBold',
+    fontWeight: '600',
+    color: '#2D1B12',
+    lineHeight: 24,
+  },
+  body: {
+    fontSize: 16,
+    fontFamily: 'Inter-Regular',
+    fontWeight: 'normal',
+    color: '#2D1B12',
+    lineHeight: 22,
+  },
+  bodySmall: {
+    fontSize: 14,
+    fontFamily: 'Inter-Regular',
+    fontWeight: 'normal',
+    color: '#8B7355',
+    lineHeight: 20,
+  },
+  caption: {
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
+    fontWeight: 'normal',
+    color: '#A8956B',
+    lineHeight: 16,
+  },
 };
