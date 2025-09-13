@@ -1,0 +1,607 @@
+{
+  "project": "Houseiana Mobile App",
+  "version": "1.0.0",
+  "designSystem": {
+    "colors": {
+      "primary": "#2196F3",
+      "secondary": "#FF9800",
+      "success": "#4CAF50",
+      "warning": "#FFC107",
+      "error": "#F44336",
+      "qatarGold": "#FFD700",
+      "background": "#FFFFFF",
+      "surface": "#F5F5F5",
+      "textPrimary": "#333333",
+      "textSecondary": "#666666"
+    },
+    "typography": {
+      "hero": {"size": 24, "weight": "bold", "lineHeight": 32},
+      "h1": {"size": 20, "weight": "bold", "lineHeight": 28},
+      "h2": {"size": 18, "weight": "semibold", "lineHeight": 24},
+      "body": {"size": 16, "weight": "regular", "lineHeight": 22},
+      "caption": {"size": 14, "weight": "regular", "lineHeight": 20},
+      "small": {"size": 12, "weight": "regular", "lineHeight": 16}
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48
+    }
+  },
+  "screens": {
+    "splash": {
+      "name": "Splash Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "logo": {
+          "position": {"x": 112.5, "y": 356},
+          "size": {"width": 150, "height": 100},
+          "style": "Qatar-inspired logo with building icon"
+        },
+        "tagline": {
+          "position": {"x": 24, "y": 480},
+          "size": {"width": 327, "height": 24},
+          "text": "Qatar's Premier Property Platform",
+          "style": "hero typography, centered"
+        },
+        "loadingIndicator": {
+          "position": {"x": 167.5, "y": 600},
+          "size": {"width": 40, "height": 40},
+          "color": "#2196F3"
+        }
+      },
+      "background": "#FFFFFF"
+    },
+    "auth_login": {
+      "name": "Login Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "header": {
+          "position": {"x": 24, "y": 120},
+          "text": "Welcome Back",
+          "style": "h1 typography"
+        },
+        "subtitle": {
+          "position": {"x": 24, "y": 156},
+          "text": "Sign in to continue your property journey",
+          "style": "body typography, textSecondary color"
+        },
+        "emailInput": {
+          "position": {"x": 24, "y": 220},
+          "size": {"width": 327, "height": 48},
+          "placeholder": "Email address",
+          "style": "border: 1px solid #E0E0E0, borderRadius: 8"
+        },
+        "passwordInput": {
+          "position": {"x": 24, "y": 284},
+          "size": {"width": 327, "height": 48},
+          "placeholder": "Password",
+          "style": "border: 1px solid #E0E0E0, borderRadius: 8"
+        },
+        "forgotPassword": {
+          "position": {"x": 24, "y": 348},
+          "text": "Forgot Password?",
+          "style": "caption typography, primary color"
+        },
+        "loginButton": {
+          "position": {"x": 24, "y": 400},
+          "size": {"width": 327, "height": 48},
+          "text": "Sign In",
+          "style": "primary button, white text"
+        },
+        "socialLogin": {
+          "position": {"x": 24, "y": 480},
+          "size": {"width": 327, "height": 48},
+          "text": "Continue with Google",
+          "style": "outline button"
+        },
+        "signupLink": {
+          "position": {"x": 24, "y": 600},
+          "text": "Don't have an account? Sign up",
+          "style": "caption typography, centered"
+        }
+      }
+    },
+    "home": {
+      "name": "Home Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "header": {
+          "position": {"x": 0, "y": 44},
+          "size": {"width": 375, "height": 80},
+          "elements": {
+            "greeting": {
+              "position": {"x": 24, "y": 16},
+              "text": "Good morning, Ahmed",
+              "style": "h2 typography"
+            },
+            "location": {
+              "position": {"x": 24, "y": 44},
+              "text": "📍 The Pearl, Qatar",
+              "style": "caption typography, textSecondary"
+            },
+            "notifications": {
+              "position": {"x": 327, "y": 20},
+              "size": {"width": 24, "height": 24},
+              "icon": "bell"
+            }
+          }
+        },
+        "searchBar": {
+          "position": {"x": 24, "y": 140},
+          "size": {"width": 327, "height": 48},
+          "placeholder": "Search properties in Qatar...",
+          "style": "surface background, rounded"
+        },
+        "quickFilters": {
+          "position": {"x": 24, "y": 204},
+          "size": {"width": 327, "height": 40},
+          "items": ["The Pearl", "West Bay", "Lusail", "Old Town"],
+          "style": "horizontal scroll, chip buttons"
+        },
+        "featuredSection": {
+          "position": {"x": 24, "y": 260},
+          "elements": {
+            "title": {
+              "text": "Featured Properties",
+              "style": "h2 typography"
+            },
+            "carousel": {
+              "position": {"x": 0, "y": 32},
+              "size": {"width": 375, "height": 240},
+              "style": "horizontal scroll property cards"
+            }
+          }
+        },
+        "nearbySection": {
+          "position": {"x": 24, "y": 536},
+          "elements": {
+            "title": {
+              "text": "Near The Pearl",
+              "style": "h2 typography"
+            },
+            "propertyList": {
+              "position": {"x": 0, "y": 32},
+              "style": "vertical list of property cards"
+            }
+          }
+        }
+      }
+    },
+    "property_details": {
+      "name": "Property Details Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "imageGallery": {
+          "position": {"x": 0, "y": 0},
+          "size": {"width": 375, "height": 280},
+          "style": "full-width image carousel with indicators"
+        },
+        "backButton": {
+          "position": {"x": 24, "y": 60},
+          "size": {"width": 40, "height": 40},
+          "style": "white background, shadow"
+        },
+        "favoriteButton": {
+          "position": {"x": 311, "y": 60},
+          "size": {"width": 40, "height": 40},
+          "style": "white background, shadow"
+        },
+        "contentArea": {
+          "position": {"x": 0, "y": 280},
+          "size": {"width": 375, "height": 532},
+          "elements": {
+            "title": {
+              "position": {"x": 24, "y": 24},
+              "text": "Luxury Villa in The Pearl",
+              "style": "h1 typography"
+            },
+            "location": {
+              "position": {"x": 24, "y": 56},
+              "text": "📍 The Pearl, Doha, Qatar",
+              "style": "body typography, textSecondary"
+            },
+            "rating": {
+              "position": {"x": 24, "y": 88},
+              "text": "⭐ 4.8 (124 reviews)",
+              "style": "caption typography"
+            },
+            "price": {
+              "position": {"x": 279, "y": 24},
+              "text": "QAR 850/night",
+              "style": "h2 typography, primary color"
+            },
+            "hostInfo": {
+              "position": {"x": 24, "y": 132},
+              "size": {"width": 327, "height": 60},
+              "style": "host avatar, name, verification badge"
+            },
+            "amenities": {
+              "position": {"x": 24, "y": 208},
+              "style": "grid of amenity icons and labels"
+            },
+            "description": {
+              "position": {"x": 24, "y": 280},
+              "style": "expandable text block"
+            },
+            "reviews": {
+              "position": {"x": 24, "y": 360},
+              "style": "review cards with ratings"
+            }
+          }
+        },
+        "bottomBar": {
+          "position": {"x": 0, "y": 748},
+          "size": {"width": 375, "height": 64},
+          "elements": {
+            "contactButton": {
+              "position": {"x": 24, "y": 8},
+              "size": {"width": 120, "height": 48},
+              "text": "Contact Host",
+              "style": "outline button"
+            },
+            "bookButton": {
+              "position": {"x": 156, "y": 8},
+              "size": {"width": 195, "height": 48},
+              "text": "Book Now",
+              "style": "primary button"
+            }
+          }
+        }
+      }
+    },
+    "booking": {
+      "name": "Booking Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "header": {
+          "position": {"x": 0, "y": 44},
+          "size": {"width": 375, "height": 60},
+          "elements": {
+            "backButton": {
+              "position": {"x": 24, "y": 18},
+              "size": {"width": 24, "height": 24}
+            },
+            "title": {
+              "position": {"x": 60, "y": 16},
+              "text": "Book Your Stay",
+              "style": "h2 typography"
+            }
+          }
+        },
+        "propertyInfo": {
+          "position": {"x": 24, "y": 120},
+          "size": {"width": 327, "height": 80},
+          "style": "condensed property card with image and basic info"
+        },
+        "dateSelection": {
+          "position": {"x": 24, "y": 220},
+          "elements": {
+            "checkInDate": {
+              "position": {"x": 0, "y": 0},
+              "size": {"width": 156, "height": 60},
+              "label": "Check-in",
+              "style": "date picker card"
+            },
+            "checkOutDate": {
+              "position": {"x": 171, "y": 0},
+              "size": {"width": 156, "height": 60},
+              "label": "Check-out",
+              "style": "date picker card"
+            }
+          }
+        },
+        "guestSelection": {
+          "position": {"x": 24, "y": 300},
+          "size": {"width": 327, "height": 60},
+          "label": "Guests",
+          "style": "dropdown or stepper control"
+        },
+        "priceBreakdown": {
+          "position": {"x": 24, "y": 380},
+          "size": {"width": 327, "height": 160},
+          "elements": {
+            "title": {
+              "text": "Price Details",
+              "style": "h2 typography"
+            },
+            "basePrice": {
+              "text": "QAR 850 x 3 nights",
+              "value": "QAR 2,550",
+              "style": "row layout"
+            },
+            "serviceFee": {
+              "text": "Service fee",
+              "value": "QAR 128",
+              "style": "row layout"
+            },
+            "taxes": {
+              "text": "Taxes",
+              "value": "QAR 89",
+              "style": "row layout"
+            },
+            "total": {
+              "text": "Total",
+              "value": "QAR 2,767",
+              "style": "row layout, bold"
+            }
+          }
+        },
+        "bookButton": {
+          "position": {"x": 24, "y": 580},
+          "size": {"width": 327, "height": 48},
+          "text": "Confirm and Pay",
+          "style": "primary button"
+        }
+      }
+    },
+    "map": {
+      "name": "Map Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "mapView": {
+          "position": {"x": 0, "y": 0},
+          "size": {"width": 375, "height": 812},
+          "center": {"lat": 25.3548, "lng": 51.4834},
+          "zoom": 12,
+          "style": "Google Maps with Qatar focus"
+        },
+        "searchBar": {
+          "position": {"x": 24, "y": 80},
+          "size": {"width": 327, "height": 48},
+          "style": "floating search bar with shadow"
+        },
+        "filterButton": {
+          "position": {"x": 311, "y": 140},
+          "size": {"width": 40, "height": 40},
+          "icon": "filter",
+          "style": "floating button with shadow"
+        },
+        "propertyMarkers": {
+          "style": "custom markers with price bubbles",
+          "positions": [
+            {"lat": 25.3700, "lng": 51.5373, "price": "QAR 650"},
+            {"lat": 25.3208, "lng": 51.5127, "price": "QAR 1,200"},
+            {"lat": 25.3548, "lng": 51.4834, "price": "QAR 850"}
+          ]
+        },
+        "userLocation": {
+          "style": "blue dot with accuracy circle"
+        },
+        "propertyCard": {
+          "position": {"x": 24, "y": 688},
+          "size": {"width": 327, "height": 100},
+          "style": "bottom sheet property preview card"
+        }
+      }
+    },
+    "profile": {
+      "name": "Profile Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "header": {
+          "position": {"x": 24, "y": 80},
+          "size": {"width": 327, "height": 100},
+          "elements": {
+            "avatar": {
+              "position": {"x": 0, "y": 0},
+              "size": {"width": 80, "height": 80},
+              "style": "circular avatar image"
+            },
+            "userInfo": {
+              "position": {"x": 96, "y": 8},
+              "elements": {
+                "name": {
+                  "text": "Ahmed Al-Thani",
+                  "style": "h2 typography"
+                },
+                "email": {
+                  "text": "ahmed@example.com",
+                  "style": "caption typography, textSecondary"
+                },
+                "verification": {
+                  "text": "✓ Verified Host",
+                  "style": "caption typography, success color"
+                }
+              }
+            }
+          }
+        },
+        "menuItems": {
+          "position": {"x": 24, "y": 220},
+          "size": {"width": 327, "height": 400},
+          "items": [
+            {
+              "icon": "📅",
+              "title": "My Bookings",
+              "subtitle": "View your trips and reservations",
+              "height": 60
+            },
+            {
+              "icon": "❤️",
+              "title": "Favorites",
+              "subtitle": "Your saved properties",
+              "height": 60
+            },
+            {
+              "icon": "🏠",
+              "title": "My Properties",
+              "subtitle": "Manage your listings",
+              "height": 60
+            },
+            {
+              "icon": "💰",
+              "title": "Earnings",
+              "subtitle": "Track your host income",
+              "height": 60
+            },
+            {
+              "icon": "⚙️",
+              "title": "Settings",
+              "subtitle": "Account and preferences",
+              "height": 60
+            },
+            {
+              "icon": "🆘",
+              "title": "Support",
+              "subtitle": "Help and contact us",
+              "height": 60
+            }
+          ]
+        },
+        "logoutButton": {
+          "position": {"x": 24, "y": 680},
+          "size": {"width": 327, "height": 48},
+          "text": "Sign Out",
+          "style": "outline button, error color"
+        }
+      }
+    },
+    "search": {
+      "name": "Search Screen",
+      "size": {"width": 375, "height": 812},
+      "elements": {
+        "searchHeader": {
+          "position": {"x": 0, "y": 44},
+          "size": {"width": 375, "height": 140},
+          "elements": {
+            "searchBar": {
+              "position": {"x": 24, "y": 16},
+              "size": {"width": 327, "height": 48},
+              "placeholder": "Where are you going?",
+              "value": "The Pearl"
+            },
+            "dateRange": {
+              "position": {"x": 24, "y": 80},
+              "size": {"width": 200, "height": 36},
+              "text": "Mar 15 - 18, 2024",
+              "style": "chip button"
+            },
+            "guests": {
+              "position": {"x": 240, "y": 80},
+              "size": {"width": 111, "height": 36},
+              "text": "2 guests",
+              "style": "chip button"
+            }
+          }
+        },
+        "filterBar": {
+          "position": {"x": 24, "y": 200},
+          "size": {"width": 327, "height": 40},
+          "items": ["Price", "Property Type", "Amenities", "Host Language"],
+          "style": "horizontal scroll filter chips"
+        },
+        "resultsCount": {
+          "position": {"x": 24, "y": 260},
+          "text": "47 properties in The Pearl",
+          "style": "caption typography"
+        },
+        "sortButton": {
+          "position": {"x": 279, "y": 256},
+          "size": {"width": 72, "height": 32},
+          "text": "Sort",
+          "style": "outline button small"
+        },
+        "propertyList": {
+          "position": {"x": 24, "y": 300},
+          "size": {"width": 327, "height": 468},
+          "style": "vertical scrolling property cards"
+        },
+        "mapToggle": {
+          "position": {"x": 311, "y": 728},
+          "size": {"width": 48, "height": 48},
+          "text": "Map",
+          "style": "floating action button"
+        }
+      }
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": {
+        "backgroundColor": "#2196F3",
+        "textColor": "#FFFFFF",
+        "borderRadius": 8,
+        "height": 48,
+        "typography": "body weight semibold"
+      },
+      "secondary": {
+        "backgroundColor": "#FF9800",
+        "textColor": "#FFFFFF",
+        "borderRadius": 8,
+        "height": 48
+      },
+      "outline": {
+        "backgroundColor": "transparent",
+        "textColor": "#2196F3",
+        "border": "1px solid #2196F3",
+        "borderRadius": 8,
+        "height": 48
+      },
+      "ghost": {
+        "backgroundColor": "transparent",
+        "textColor": "#2196F3",
+        "borderRadius": 8,
+        "height": 48
+      }
+    },
+    "propertyCard": {
+      "size": {"width": 280, "height": 320},
+      "borderRadius": 12,
+      "backgroundColor": "#FFFFFF",
+      "shadow": "0 2px 8px rgba(0,0,0,0.1)",
+      "elements": {
+        "image": {
+          "position": {"x": 0, "y": 0},
+          "size": {"width": 280, "height": 200},
+          "borderRadius": "12px 12px 0 0"
+        },
+        "favoriteButton": {
+          "position": {"x": 240, "y": 12},
+          "size": {"width": 28, "height": 28}
+        },
+        "content": {
+          "position": {"x": 16, "y": 212},
+          "size": {"width": 248, "height": 108},
+          "elements": {
+            "title": {
+              "position": {"x": 0, "y": 0},
+              "style": "body typography semibold"
+            },
+            "location": {
+              "position": {"x": 0, "y": 24},
+              "style": "caption typography textSecondary"
+            },
+            "rating": {
+              "position": {"x": 0, "y": 48},
+              "style": "caption typography"
+            },
+            "price": {
+              "position": {"x": 0, "y": 72},
+              "style": "body typography semibold primary"
+            }
+          }
+        }
+      }
+    },
+    "inputField": {
+      "height": 48,
+      "borderRadius": 8,
+      "border": "1px solid #E0E0E0",
+      "backgroundColor": "#FFFFFF",
+      "padding": "0 16px",
+      "typography": "body regular",
+      "states": {
+        "focused": {
+          "border": "1px solid #2196F3"
+        },
+        "error": {
+          "border": "1px solid #F44336"
+        }
+      }
+    }
+  }
+}
