@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houseiana Mobile - Interactive Product Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #2196F3;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .qatar-flag {
+            display: inline-block;
+            font-size: 2em;
+            margin: 0 10px;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .demo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .demo-card h3 {
+            color: #2196F3;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .phone-mockup {
+            width: 250px;
+            height: 450px;
+            background: #000;
+            border-radius: 25px;
+            padding: 10px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 12px;
+            overflow-y: auto;
+        }
+        
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .property-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        
+        .property-image {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border-radius: 5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .price {
+            color: #2196F3;
+            font-weight: bold;
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px;
+        }
+        
+        .nav-item {
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            color: #2196F3;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-item .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .cta-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .cta-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-primary {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .cta-secondary {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .cta-outline {
+            background: transparent;
+            color: #2196F3;
+            border: 2px solid #2196F3;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .phone-mockup {
+                width: 200px;
+                height: 350px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🏠 Houseiana Mobile</h1>
+            <p>Qatar's Premier Property Rental Platform <span class="qatar-flag">🇶🇦</span></p>
+            <p><strong>Complete Mobile App with 50+ Components & Full Qatar Market Integration</strong></p>
+        </div>
+
+        <!-- Demo Grid -->
+        <div class="demo-grid">
+            <!-- Home Screen Demo -->
+            <div class="demo-card">
+                <h3>📱 Home Screen</h3>
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <span>🏠 Houseiana</span>
+                            <span>👤</span>
+                        </div>
+                        
+                        <div style="background: #f0f8ff; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                            🔍 Search properties in Qatar...
+                        </div>
+                        
+                        <div style="font-weight: bold; margin-bottom: 10px;">🏷️ Featured Properties</div>
+                        
+                        <div class="property-card">
+                            <div class="property-image">🏠🌊</div>
+                            <div><strong>Villa in The Pearl</strong></div>
+                            <div>📍 The Pearl-Qatar, Doha</div>
+                            <div class="price">QAR 850/night</div>
+                            <div>⭐ 4.9 (89 reviews)</div>
+                        </div>
+                        
+                        <div class="property-card">
+                            <div class="property-image">🏢🌆</div>
+                            <div><strong>Apartment in West Bay</strong></div>
+                            <div>📍 West Bay, Doha</div>
+                            <div class="price">QAR 450/night</div>
+                            <div>⭐ 4.6 (45 reviews)</div>
+                        </div>
+                        
+                        <div class="bottom-nav">
+                            <div class="nav-item active">
+                                <div>🏠</div>
+                                <div>Home</div>
+                            </div>
+                            <div class="nav-item">
+                                <div>🔍</div>
+                                <div>Search</div>
+                            </div>
+                            <div class="nav-item">
+                                <div>📅</div>
+                                <div>Trips</div>
+                            </div>
+                            <div class="nav-item">
+                                <div>♡</div>
+                                <div>Favorites</div>
+                            </div>
+                            <div class="nav-item">
+                                <div>👤</div>
+                                <div>Profile</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Flow Demo -->
+            <div class="demo-card">
+                <h3>📅 Booking Flow</h3>
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <span>← Book Property</span>
+                            <span>✕</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong>🏠 Luxury Villa in The Pearl</strong><br>
+                            <span class="price">QAR 850 per night</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <strong>📅 Check-in</strong><br>
+                            <div style="border: 1px solid #ddd; padding: 8px; border-radius: 4px;">
+                                Wed, Dec 20, 2024 ⏰ 3PM
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <strong>📅 Check-out</strong><br>
+                            <div style="border: 1px solid #ddd; padding: 8px; border-radius: 4px;">
+                                Mon, Dec 25, 2024 ⏰ 11AM
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong>👥 Guests</strong><br>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                Adults <span>➖ 2 ➕</span>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                            <strong>💰 Price Breakdown:</strong><br>
+                            QAR 850 × 5 nights = QAR 4,250<br>
+                            Cleaning fee = QAR 150<br>
+                            Service fee = QAR 300<br>
+                            Taxes = QAR 200<br>
+                            <hr style="margin: 5px 0;">
+                            <strong>Total = QAR 4,900</strong>
+                        </div>
+                        
+                        <div style="background: #2196F3; color: white; padding: 12px; border-radius: 8px; text-align: center; cursor: pointer;">
+                            <strong>Confirm Booking - QAR 4,900</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map View Demo -->
+            <div class="demo-card">
+                <h3>🗺️ Interactive Map</h3>
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <span>← Map View</span>
+                            <span>🔍 ⚙️</span>
+                        </div>
+                        
+                        <div style="height: 200px; background: linear-gradient(to bottom, #87CEEB, #f0f8ff); border-radius: 8px; margin-bottom: 15px; position: relative; padding: 20px;">
+                            <div style="position: absolute; top: 30px; left: 30px; background: #2196F3; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">📍 QAR850<br>Pearl</div>
+                            <div style="position: absolute; top: 50px; right: 40px; background: #2196F3; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">📍 QAR450<br>West Bay</div>
+                            <div style="position: absolute; bottom: 30px; left: 50px; background: #2196F3; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px;">📍 QAR1200<br>Lusail</div>
+                            <div style="position: absolute; top: 80px; left: 80px; width: 12px; height: 12px; background: #2196F3; border-radius: 50%; border: 2px solid white;">🔵</div>
+                            <div style="position: absolute; bottom: 10px; right: 10px; background: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">🎯</div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 8px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+                            📊 12 properties • QAR 450-2500
+                        </div>
+                        
+                        <div style="border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+                            <strong>Property Selected:</strong><br>
+                            <div style="display: flex; align-items: center; margin-top: 8px;">
+                                <div style="width: 40px; height: 40px; background: #f0f0f0; border-radius: 4px; margin-right: 10px; display: flex; align-items: center; justify-content: center;">🏠</div>
+                                <div>
+                                    <div><strong>The Pearl • QAR 850</strong></div>
+                                    <div>⭐ 4.9 • 4 bed • Pool</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 5px; margin-top: 10px;">
+                                <div style="background: #2196F3; color: white; padding: 4px 8px; border-radius: 4px; font-size: 10px;">View Details</div>
+                                <div style="background: #FF9800; color: white; padding: 4px 8px; border-radius: 4px; font-size: 10px;">Book Now</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Component Library Demo -->
+            <div class="demo-card">
+                <h3>🧩 Component Library</h3>
+                <p><strong>50+ Interactive Storybook Components</strong></p>
+                
+                <div style="margin: 15px 0;">
+                    <div><strong>🔧 Core Components:</strong></div>
+                    <div>• Button (17+ variants)</div>
+                    <div>• PropertyCard (9+ styles)</div>
+                    <div>• LoadingSpinner (8+ modes)</div>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <div><strong>🗺️ Map Components:</strong></div>
+                    <div>• PropertyMapView</div>
+                    <div>• Interactive markers</div>
+                    <div>• Qatar-centered regions</div>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <div><strong>📱 Booking Screens:</strong></div>
+                    <div>• Complete booking flow</div>
+                    <div>• Confirmation screens</div>
+                    <div>• Trip management</div>
+                </div>
+                
+                <div style="background: #f0f8ff; padding: 10px; border-radius: 5px;">
+                    <strong>🎛️ Interactive Controls:</strong><br>
+                    Real-time prop editing, state testing, code examples
+                </div>
+            </div>
+
+            <!-- Qatar Features Demo -->
+            <div class="demo-card">
+                <h3>🇶🇦 Qatar Market Features</h3>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="emoji">💰</div>
+                        <div><strong>QAR Currency</strong></div>
+                        <div>Native Riyal formatting</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="emoji">📍</div>
+                        <div><strong>Local Areas</strong></div>
+                        <div>Pearl, West Bay, Lusail</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="emoji">🏗️</div>
+                        <div><strong>Qatar Properties</strong></div>
+                        <div>Local architecture styles</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="emoji">📱</div>
+                        <div><strong>+974 Numbers</strong></div>
+                        <div>Qatar phone format</div>
+                    </div>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>🌐 Ready Features:</strong><br>
+                    • Arabic language preparation<br>
+                    • Right-to-left layout support<br>
+                    • Cultural design elements<br>
+                    • Local payment integration ready
+                </div>
+            </div>
+
+            <!-- Technical Stats -->
+            <div class="demo-card">
+                <h3>⚡ Technical Excellence</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div>Components</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div>Qatar Focus</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">0.72</div>
+                        <div>RN Version</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <div><strong>🚀 Performance:</strong></div>
+                    <div>• App launch: &lt; 3 seconds</div>
+                    <div>• Search: &lt; 1 second</div>
+                    <div>• Map render: &lt; 2 seconds</div>
+                    <div>• Memory: &lt; 150MB</div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <div><strong>📱 Compatibility:</strong></div>
+                    <div>• iOS 12+ supported</div>
+                    <div>• Android 7+ supported</div>
+                    <div>• Responsive design</div>
+                    <div>• Accessibility compliant</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>Ready to Experience Houseiana Mobile?</h2>
+            <p>Complete Qatar-focused property rental platform with full mobile functionality</p>
+            
+            <div class="cta-buttons">
+                <button class="cta-button cta-primary" onclick="alert('Install Expo Go app on your phone, then run: npx expo start')">
+                    📱 Try on Your Phone
+                </button>
+                
+                <button class="cta-button cta-secondary" onclick="alert('Set SHOW_STORYBOOK = true in index.js to explore 50+ components')">
+                    🧩 Explore Storybook
+                </button>
+                
+                <button class="cta-button cta-outline" onclick="window.open('https://github.com/dev-web3js/Houseiana-Mobile-app', '_blank')">
+                    💻 View on GitHub
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f0f8ff; border-radius: 10px;">
+                <h3>🚀 Quick Start Options:</h3>
+                <div style="text-align: left; margin-top: 15px;">
+                    <strong>1. Expo Go (Recommended - 5 min):</strong><br>
+                    <code style="background: #eee; padding: 2px 4px;">npm install expo && npx expo start</code>
+                    <br><br>
+                    
+                    <strong>2. iOS Simulator (15 min):</strong><br>
+                    <code style="background: #eee; padding: 2px 4px;">npx react-native run-ios</code>
+                    <br><br>
+                    
+                    <strong>3. Storybook Components:</strong><br>
+                    <code style="background: #eee; padding: 2px 4px;">SHOW_STORYBOOK = true</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.demo-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Add click handlers for navigation items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
