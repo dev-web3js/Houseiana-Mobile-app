@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
-import {formatPrice, formatDate} from '../../shared/utils';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
+import { formatPrice, formatDate } from '../../shared/utils';
 
-const PropertyDetailScreen = ({route, navigation}) => {
-  const {propertyId} = route.params;
+const PropertyDetailScreen = ({ route, navigation }) => {
+  const { propertyId } = route.params;
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -67,7 +67,8 @@ const PropertyDetailScreen = ({route, navigation}) => {
           <Text style={styles.title}>{property.title}</Text>
           <TouchableOpacity
             style={styles.favoriteButton}
-            onPress={handleToggleFavorite}>
+            onPress={handleToggleFavorite}
+          >
             <Icon
               name={isFavorite ? 'favorite' : 'favorite-border'}
               size={24}
@@ -97,11 +98,15 @@ const PropertyDetailScreen = ({route, navigation}) => {
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabel}>Bathrooms</Text>
-            <Text style={styles.detailValue}>{property.bathrooms || 'N/A'}</Text>
+            <Text style={styles.detailValue}>
+              {property.bathrooms || 'N/A'}
+            </Text>
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabel}>Area</Text>
-            <Text style={styles.detailValue}>{property.area || 'N/A'} sq ft</Text>
+            <Text style={styles.detailValue}>
+              {property.area || 'N/A'} sq ft
+            </Text>
           </View>
         </View>
       </View>
@@ -122,8 +127,12 @@ const PropertyDetailScreen = ({route, navigation}) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Contact Information</Text>
         <Text style={styles.hostName}>Host: {property.hostName || 'N/A'}</Text>
-        <Text style={styles.contactInfo}>Email: {property.hostEmail || 'N/A'}</Text>
-        <Text style={styles.contactInfo}>Phone: {property.hostPhone || 'N/A'}</Text>
+        <Text style={styles.contactInfo}>
+          Email: {property.hostEmail || 'N/A'}
+        </Text>
+        <Text style={styles.contactInfo}>
+          Phone: {property.hostPhone || 'N/A'}
+        </Text>
       </View>
 
       <View style={styles.footer}>

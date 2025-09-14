@@ -1,11 +1,13 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 // Use localhost for iOS simulator, 10.0.2.2 for Android emulator
-const API_BASE_URL = __DEV__ ? 
-  (Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000') :
-  'https://your-production-api.com';
+const API_BASE_URL = __DEV__
+  ? Platform.OS === 'android'
+    ? 'http://10.0.2.2:5000'
+    : 'http://localhost:5000'
+  : 'https://your-production-api.com';
 
 class MobileAPIService {
   constructor() {
@@ -53,7 +55,10 @@ class MobileAPIService {
   handleError(error) {
     if (error.response) {
       // Server responded with error status
-      const message = error.response.data?.message || error.response.data?.error || 'An error occurred';
+      const message =
+        error.response.data?.message ||
+        error.response.data?.error ||
+        'An error occurred';
       throw new Error(message);
     } else if (error.request) {
       // Network error
@@ -72,12 +77,12 @@ class MobileAPIService {
     try {
       const response = await this.client.post('/auth/login', credentials);
       const { access_token, user } = response.data;
-      
+
       if (access_token) {
         await AsyncStorage.setItem('houseiana_token', access_token);
         await AsyncStorage.setItem('houseiana_user', JSON.stringify(user));
       }
-      
+
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -88,12 +93,12 @@ class MobileAPIService {
     try {
       const response = await this.client.post('/auth/register', userData);
       const { access_token, user } = response.data;
-      
+
       if (access_token) {
         await AsyncStorage.setItem('houseiana_token', access_token);
         await AsyncStorage.setItem('houseiana_user', JSON.stringify(user));
       }
-      
+
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -121,7 +126,9 @@ class MobileAPIService {
 
   async forgotPassword(email) {
     try {
-      const response = await this.client.post('/auth/forgot-password', { email });
+      const response = await this.client.post('/auth/forgot-password', {
+        email,
+      });
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -130,7 +137,10 @@ class MobileAPIService {
 
   async resetPassword(token, password) {
     try {
-      const response = await this.client.post('/auth/reset-password', { token, password });
+      const response = await this.client.post('/auth/reset-password', {
+        token,
+        password,
+      });
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -144,17 +154,23 @@ class MobileAPIService {
   async searchProperties(filters = {}) {
     try {
       const params = new URLSearchParams();
-      Object.keys(filters).forEach(key => {
-        if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+      Object.keys(filters).forEach((key) => {
+        if (
+          filters[key] !== undefined &&
+          filters[key] !== null &&
+          filters[key] !== ''
+        ) {
           if (Array.isArray(filters[key])) {
-            filters[key].forEach(item => params.append(key, item));
+            filters[key].forEach((item) => params.append(key, item));
           } else {
             params.append(key, filters[key]);
           }
         }
       });
-      
-      const response = await this.client.get(`/properties?${params.toString()}`);
+
+      const response = await this.client.get(
+        `/properties?${params.toString()}`
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -181,7 +197,10 @@ class MobileAPIService {
 
   async updateProperty(id, propertyData) {
     try {
-      const response = await this.client.patch(`/properties/${id}`, propertyData);
+      const response = await this.client.patch(
+        `/properties/${id}`,
+        propertyData
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -209,7 +228,9 @@ class MobileAPIService {
   // Favorites
   async toggleFavorite(propertyId) {
     try {
-      const response = await this.client.post(`/properties/${propertyId}/favorite`);
+      const response = await this.client.post(
+        `/properties/${propertyId}/favorite`
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -258,7 +279,9 @@ class MobileAPIService {
 
   async updateBookingStatus(id, status) {
     try {
-      const response = await this.client.patch(`/bookings/${id}/status`, { status });
+      const response = await this.client.patch(`/bookings/${id}/status`, {
+        status,
+      });
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -267,7 +290,9 @@ class MobileAPIService {
 
   async cancelBooking(id, reason) {
     try {
-      const response = await this.client.patch(`/bookings/${id}/cancel`, { reason });
+      const response = await this.client.patch(`/bookings/${id}/cancel`, {
+        reason,
+      });
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -317,11 +342,15 @@ class MobileAPIService {
         name: imageData.name || 'profile.jpg',
       });
 
-      const response = await this.client.post('/users/profile/photo', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await this.client.post(
+        '/users/profile/photo',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -330,7 +359,10 @@ class MobileAPIService {
 
   async changePassword(passwordData) {
     try {
-      const response = await this.client.patch('/users/change-password', passwordData);
+      const response = await this.client.patch(
+        '/users/change-password',
+        passwordData
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -395,7 +427,9 @@ class MobileAPIService {
 
   async getMessages(conversationId) {
     try {
-      const response = await this.client.get(`/messages/conversations/${conversationId}`);
+      const response = await this.client.get(
+        `/messages/conversations/${conversationId}`
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -404,9 +438,12 @@ class MobileAPIService {
 
   async sendMessage(conversationId, message) {
     try {
-      const response = await this.client.post(`/messages/conversations/${conversationId}`, {
-        message,
-      });
+      const response = await this.client.post(
+        `/messages/conversations/${conversationId}`,
+        {
+          message,
+        }
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -501,7 +538,9 @@ class MobileAPIService {
 
   async getLocationSuggestions(query) {
     try {
-      const response = await this.client.get(`/search/locations?q=${encodeURIComponent(query)}`);
+      const response = await this.client.get(
+        `/search/locations?q=${encodeURIComponent(query)}`
+      );
       return response.data;
     } catch (error) {
       this.handleError(error);
@@ -522,7 +561,10 @@ class MobileAPIService {
     try {
       const recentSearches = await this.getRecentSearches();
       const updatedSearches = [searchData, ...recentSearches.slice(0, 9)]; // Keep last 10
-      await AsyncStorage.setItem('recent_searches', JSON.stringify(updatedSearches));
+      await AsyncStorage.setItem(
+        'recent_searches',
+        JSON.stringify(updatedSearches)
+      );
     } catch (error) {
       console.log('Error saving recent search:', error);
     }

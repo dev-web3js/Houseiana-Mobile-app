@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,13 +9,13 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useAuth} from '../../auth/AuthContext';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
+import { useAuth } from '../../auth/AuthContext';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const HostDashboardScreen = ({navigation}) => {
-  const {user} = useAuth();
+const HostDashboardScreen = ({ navigation }) => {
+  const { user } = useAuth();
   const [stats, setStats] = useState({
     totalProperties: 0,
     activeBookings: 0,
@@ -31,19 +31,17 @@ const HostDashboardScreen = ({navigation}) => {
       navigation.replace('LoginScreen');
       return;
     }
-    
+
     // Check if user is a host
     if (user.role !== 'host' && user.role !== 'both' && !user.isHost) {
       Alert.alert(
-        'Access Denied', 
+        'Access Denied',
         'You need to be registered as a host to access this dashboard.',
-        [
-          {text: 'OK', onPress: () => navigation.goBack()}
-        ]
+        [{ text: 'OK', onPress: () => navigation.goBack() }]
       );
       return;
     }
-    
+
     fetchHostStats();
   }, [user, navigation]);
 
@@ -143,15 +141,17 @@ const HostDashboardScreen = ({navigation}) => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}>
+          onPress={() => navigation.goBack()}
+        >
           <Icon name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
-        
+
         <Text style={styles.headerTitle}>Host Dashboard</Text>
-        
+
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => navigation.navigate('AddProperty')}>
+          onPress={() => navigation.navigate('AddProperty')}
+        >
           <Icon name="add" size={20} color="white" />
           <Text style={styles.addButtonText}>Add Property</Text>
         </TouchableOpacity>
@@ -173,12 +173,14 @@ const HostDashboardScreen = ({navigation}) => {
           {statCards.map((stat, index) => (
             <View key={index} style={styles.statCard}>
               <View style={styles.statHeader}>
-                <View style={[styles.statIcon, {backgroundColor: stat.color}]}>
+                <View
+                  style={[styles.statIcon, { backgroundColor: stat.color }]}
+                >
                   <Text style={styles.statEmoji}>{stat.icon}</Text>
                 </View>
                 <Text style={styles.statTitle}>{stat.title}</Text>
               </View>
-              <Text style={[styles.statValue, {color: stat.textColor}]}>
+              <Text style={[styles.statValue, { color: stat.textColor }]}>
                 {stat.value}
               </Text>
             </View>
@@ -194,9 +196,15 @@ const HostDashboardScreen = ({navigation}) => {
                 key={index}
                 style={styles.actionCard}
                 onPress={action.onPress}
-                activeOpacity={0.7}>
+                activeOpacity={0.7}
+              >
                 <View style={styles.actionHeader}>
-                  <View style={[styles.actionIcon, {backgroundColor: action.color}]}>
+                  <View
+                    style={[
+                      styles.actionIcon,
+                      { backgroundColor: action.color },
+                    ]}
+                  >
                     <Text style={styles.actionEmoji}>{action.icon}</Text>
                   </View>
                   <View style={styles.actionTextContainer}>
@@ -213,7 +221,7 @@ const HostDashboardScreen = ({navigation}) => {
         {/* Performance Insights */}
         <View style={styles.insightsSection}>
           <Text style={styles.sectionTitle}>Performance Insights</Text>
-          
+
           <View style={styles.insightCard}>
             <View style={styles.insightHeader}>
               <Icon name="trending-up" size={24} color="#10b981" />
@@ -242,7 +250,7 @@ const HostDashboardScreen = ({navigation}) => {
         {/* Recent Activity */}
         <View style={styles.recentSection}>
           <Text style={styles.sectionTitle}>Recent Activity</Text>
-          
+
           <View style={styles.activityCard}>
             <Icon name="event" size={20} color="#2563eb" />
             <View style={styles.activityContent}>
@@ -331,7 +339,7 @@ const styles = StyleSheet.create({
     marginVertical: SPACING.lg,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.12,
     shadowRadius: 3,
   },
@@ -358,7 +366,7 @@ const styles = StyleSheet.create({
     width: (width - SPACING.lg * 2 - SPACING.md) / 2,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.12,
     shadowRadius: 3,
   },
@@ -403,7 +411,7 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.12,
     shadowRadius: 3,
   },
@@ -453,7 +461,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.12,
     shadowRadius: 3,
   },
@@ -491,7 +499,7 @@ const styles = StyleSheet.create({
     gap: SPACING.md,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.12,
     shadowRadius: 3,
   },

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,10 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
-import {apiService} from '../../services/api';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
+import { apiService } from '../../services/api';
 
-const ResetPasswordScreen = ({navigation}) => {
+const ResetPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -30,7 +30,7 @@ const ResetPasswordScreen = ({navigation}) => {
 
     setIsLoading(true);
     try {
-      await apiService.resetPassword({email: email.trim()});
+      await apiService.resetPassword({ email: email.trim() });
       setEmailSent(true);
     } catch (error) {
       Alert.alert('Error', error.message || 'Failed to send reset email');
@@ -57,16 +57,16 @@ const ResetPasswordScreen = ({navigation}) => {
             <View style={styles.successIcon}>
               <Text style={styles.successIconText}>✓</Text>
             </View>
-            
+
             <Text style={styles.successTitle}>Check your email</Text>
             <Text style={styles.successMessage}>
               We've sent a password reset link to{'\n'}
               <Text style={styles.emailHighlight}>{email}</Text>
             </Text>
-            
+
             <Text style={styles.instructionText}>
-              Click the link in the email to reset your password. 
-              The link will expire in 24 hours.
+              Click the link in the email to reset your password. expire in 24
+              hours.
             </Text>
 
             <TouchableOpacity
@@ -105,7 +105,8 @@ const ResetPasswordScreen = ({navigation}) => {
         <View style={styles.content}>
           <Text style={styles.title}>Reset your password</Text>
           <Text style={styles.subtitle}>
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your email address and we'll send you a link to reset your
+            password.
           </Text>
 
           <View style={styles.inputContainer}>
@@ -125,7 +126,7 @@ const ResetPasswordScreen = ({navigation}) => {
           <TouchableOpacity
             style={[
               styles.resetButton,
-              (!email.trim() || isLoading) && styles.resetButtonDisabled
+              (!email.trim() || isLoading) && styles.resetButtonDisabled,
             ]}
             onPress={handleResetPassword}
             disabled={!email.trim() || isLoading}
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: SPACING.lg,
     shadowColor: COLORS.primary,
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,

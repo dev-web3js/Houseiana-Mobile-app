@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,12 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import {useAuth} from '../../auth/AuthContext';
+import { useAuth } from '../../auth/AuthContext';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
 
-const HomeScreen = ({navigation}) => {
-  const {user} = useAuth();
+const HomeScreen = ({ navigation }) => {
+  const { user } = useAuth();
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,22 +41,22 @@ const HomeScreen = ({navigation}) => {
         <Text style={styles.greeting}>
           Welcome back, {user?.name || 'Guest'}!
         </Text>
-        <Text style={styles.subtitle}>
-          Find your perfect property
-        </Text>
+        <Text style={styles.subtitle}>Find your perfect property</Text>
       </View>
 
       <View style={styles.quickActions}>
         <TouchableOpacity
           style={styles.actionCard}
-          onPress={() => navigation.navigate('Properties')}>
+          onPress={() => navigation.navigate('Properties')}
+        >
           <Text style={styles.actionTitle}>Search Properties</Text>
           <Text style={styles.actionSubtitle}>Browse available listings</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.actionCard}
-          onPress={() => navigation.navigate('Favorites')}>
+          onPress={() => navigation.navigate('Favorites')}
+        >
           <Text style={styles.actionTitle}>My Favorites</Text>
           <Text style={styles.actionSubtitle}>View saved properties</Text>
         </TouchableOpacity>
@@ -72,8 +72,11 @@ const HomeScreen = ({navigation}) => {
               key={property.id}
               style={styles.propertyCard}
               onPress={() =>
-                navigation.navigate('PropertyDetail', {propertyId: property.id})
-              }>
+                navigation.navigate('PropertyDetail', {
+                  propertyId: property.id,
+                })
+              }
+            >
               <Text style={styles.propertyTitle}>{property.title}</Text>
               <Text style={styles.propertyLocation}>{property.location}</Text>
               <Text style={styles.propertyPrice}>${property.price}/month</Text>
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     marginHorizontal: SPACING.xs,
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },

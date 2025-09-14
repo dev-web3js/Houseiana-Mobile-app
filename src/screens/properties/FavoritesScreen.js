@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
-import {formatPrice} from '../../shared/utils';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
+import { formatPrice } from '../../shared/utils';
 
-const FavoritesScreen = ({navigation}) => {
+const FavoritesScreen = ({ navigation }) => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,14 +36,16 @@ const FavoritesScreen = ({navigation}) => {
       'Remove Favorite',
       'Are you sure you want to remove this property from your favorites?',
       [
-        {text: 'Cancel', style: 'cancel'},
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Remove',
           style: 'destructive',
           onPress: async () => {
             try {
               await propertiesService.toggleFavorite(propertyId);
-              setFavorites(prev => prev.filter(item => item.id !== propertyId));
+              setFavorites((prev) =>
+                prev.filter((item) => item.id !== propertyId)
+              );
             } catch (error) {
               Alert.alert('Error', 'Failed to remove from favorites');
             }
@@ -53,21 +55,25 @@ const FavoritesScreen = ({navigation}) => {
     );
   };
 
-  const renderFavorite = ({item}) => (
+  const renderFavorite = ({ item }) => (
     <TouchableOpacity
       style={styles.propertyCard}
       onPress={() =>
-        navigation.navigate('PropertyDetail', {propertyId: item.id})
-      }>
+        navigation.navigate('PropertyDetail', { propertyId: item.id })
+      }
+    >
       <View style={styles.cardContent}>
         <View style={styles.propertyInfo}>
           <Text style={styles.propertyTitle}>{item.title}</Text>
           <Text style={styles.propertyLocation}>{item.location}</Text>
-          <Text style={styles.propertyPrice}>{formatPrice(item.price)}/month</Text>
+          <Text style={styles.propertyPrice}>
+            {formatPrice(item.price)}/month
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.removeButton}
-          onPress={() => handleRemoveFavorite(item.id)}>
+          onPress={() => handleRemoveFavorite(item.id)}
+        >
           <Icon name="favorite" size={24} color={COLORS.error} />
         </TouchableOpacity>
       </View>
@@ -83,7 +89,8 @@ const FavoritesScreen = ({navigation}) => {
       </Text>
       <TouchableOpacity
         style={styles.exploreButton}
-        onPress={() => navigation.navigate('Properties')}>
+        onPress={() => navigation.navigate('Properties')}
+      >
         <Text style={styles.exploreButtonText}>Explore Properties</Text>
       </TouchableOpacity>
     </View>
@@ -125,7 +132,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },

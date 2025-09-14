@@ -1,16 +1,16 @@
 export const COLORS = {
-  primary: '#FF6B35',        // Cosmic Orange - main brand color
-  secondary: '#F7931E',      // Orange Secondary
-  accent: '#FFB896',         // Cosmic Orange Light
-  background: '#FFF8F5',     // Cosmic Orange Background
+  primary: '#FF6B35', // Cosmic Orange - main brand color
+  secondary: '#F7931E', // Orange Secondary
+  accent: '#FFB896', // Cosmic Orange Light
+  background: '#FFF8F5', // Cosmic Orange Background
   surface: '#FFFFFF',
   success: '#4CAF50',
   error: '#F44336',
   warning: '#FFC107',
-  text: '#2D1B12',          // Dark Brown - main text
-  textSecondary: '#8B7355',  // Medium Brown
-  textLight: '#A8956B',      // Light Brown
-  border: '#E8DDD4',         // Light border matching theme
+  text: '#2D1B12', // Dark Brown - main text
+  textSecondary: '#8B7355', // Medium Brown
+  textLight: '#A8956B', // Light Brown
+  border: '#E8DDD4', // Light border matching theme
   overlay: 'rgba(45, 27, 18, 0.5)',
   // Luxury gradients
   gradientPrimary: ['#FF6B35', '#F7931E'],
@@ -37,79 +37,101 @@ export const FONT_SIZES = {
 };
 
 export const PROPERTY_TYPES = [
-  {label: 'House', value: 'house'},
-  {label: 'Apartment', value: 'apartment'},
-  {label: 'Condo', value: 'condo'},
-  {label: 'Villa', value: 'villa'},
-  {label: 'Studio', value: 'studio'},
+  { label: 'House', value: 'house' },
+  { label: 'Apartment', value: 'apartment' },
+  { label: 'Condo', value: 'condo' },
+  { label: 'Villa', value: 'villa' },
+  { label: 'Studio', value: 'studio' },
 ];
 
 export const CATEGORIES = [
-  {id: 'all', name: 'All homes', icon: '🏠'},
-  {id: 'beachfront', name: 'Beachfront', icon: '🏖️'},
-  {id: 'amazing-views', name: 'Amazing views', icon: '🌅'},
-  {id: 'luxury', name: 'Luxe', icon: '💎'},
-  {id: 'amazing-pools', name: 'Amazing pools', icon: '🏊'},
-  {id: 'villas', name: 'Villas', icon: '🏰'},
-  {id: 'apartments', name: 'Apartments', icon: '🏢'},
-  {id: 'new', name: 'New', icon: '✨'},
-  {id: 'trending', name: 'Trending', icon: '🔥'},
-  {id: 'family-friendly', name: 'Family-friendly', icon: '👨‍👩‍👧‍👦'},
-  {id: 'workspace', name: 'Remote work', icon: '💻'},
-  {id: 'parking', name: 'Free parking', icon: '🚗'}
+  { id: 'all', name: 'All homes', icon: '🏠' },
+  { id: 'beachfront', name: 'Beachfront', icon: '🏖️' },
+  { id: 'amazing-views', name: 'Amazing views', icon: '🌅' },
+  { id: 'luxury', name: 'Luxe', icon: '💎' },
+  { id: 'amazing-pools', name: 'Amazing pools', icon: '🏊' },
+  { id: 'villas', name: 'Villas', icon: '🏰' },
+  { id: 'apartments', name: 'Apartments', icon: '🏢' },
+  { id: 'new', name: 'New', icon: '✨' },
+  { id: 'trending', name: 'Trending', icon: '🔥' },
+  { id: 'family-friendly', name: 'Family-friendly', icon: '👨‍👩‍👧‍👦' },
+  { id: 'workspace', name: 'Remote work', icon: '💻' },
+  { id: 'parking', name: 'Free parking', icon: '🚗' },
 ];
 
 export const POPULAR_DESTINATIONS = [
   {
+    city: 'New York',
+    country: 'United States',
+    image:
+      'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&h=600&fit=crop',
+    properties: '12,000+ properties',
+    description: 'The city that never sleeps',
+  },
+  {
+    city: 'Paris',
+    country: 'France',
+    image:
+      'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop',
+    properties: '8,500+ properties',
+    description: 'City of lights and romance',
+  },
+  {
+    city: 'London',
+    country: 'United Kingdom',
+    image:
+      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=600&fit=crop',
+    properties: '9,200+ properties',
+    description: 'Historic charm meets modern luxury',
+  },
+  {
+    city: 'Tokyo',
+    country: 'Japan',
+    image:
+      'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop',
+    properties: '6,800+ properties',
+    description: 'Traditional culture meets innovation',
+  },
+  {
+    city: 'Dubai',
+    country: 'United Arab Emirates',
+    image:
+      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=600&fit=crop',
+    properties: '4,200+ properties',
+    description: 'Luxury desert oasis',
+  },
+  {
+    city: 'Barcelona',
+    country: 'Spain',
+    image:
+      'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&h=600&fit=crop',
+    properties: '5,100+ properties',
+    description: 'Mediterranean coastal beauty',
+  },
+  {
     city: 'The Pearl',
     country: 'Qatar',
-    image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=800&h=600&fit=crop',
+    image:
+      'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=800&h=600&fit=crop',
     properties: '120+ properties',
-    description: 'Island living with marina views'
+    description: 'Island living with marina views',
   },
   {
-    city: 'West Bay',
-    country: 'Doha',
-    image: 'https://images.unsplash.com/photo-1572252821143-035a024857ac?w=800&h=600&fit=crop',
-    properties: '85+ properties',
-    description: 'Business district & skyline views'
+    city: 'Sydney',
+    country: 'Australia',
+    image:
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+    properties: '3,800+ properties',
+    description: 'Harbour city with iconic landmarks',
   },
-  {
-    city: 'Lusail',
-    country: 'Qatar',
-    image: 'https://images.unsplash.com/photo-1580041065738-e72023775cdc?w=800&h=600&fit=crop',
-    properties: '65+ properties',
-    description: 'Modern planned city'
-  },
-  {
-    city: 'Al Waab',
-    country: 'Doha',
-    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
-    properties: '50+ properties',
-    description: 'Family-friendly neighborhood'
-  },
-  {
-    city: 'Al Rayyan',
-    country: 'Qatar',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
-    properties: '40+ properties',
-    description: 'Traditional meets modern'
-  },
-  {
-    city: 'Al Wakrah',
-    country: 'Qatar',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
-    properties: '30+ properties',
-    description: 'Coastal heritage town'
-  }
 ];
 
 export const SORT_OPTIONS = [
-  {label: 'Price: Low to High', value: 'price_asc'},
-  {label: 'Price: High to Low', value: 'price_desc'},
-  {label: 'Newest First', value: 'createdAt_desc'},
-  {label: 'Oldest First', value: 'createdAt_asc'},
-  {label: 'Most Popular', value: 'views_desc'},
+  { label: 'Price: Low to High', value: 'price_asc' },
+  { label: 'Price: High to Low', value: 'price_desc' },
+  { label: 'Newest First', value: 'createdAt_desc' },
+  { label: 'Oldest First', value: 'createdAt_asc' },
+  { label: 'Most Popular', value: 'views_desc' },
 ];
 
 export const SCREEN_NAMES = {
@@ -118,7 +140,7 @@ export const SCREEN_NAMES = {
   REGISTER: 'Register',
   RESET_PASSWORD: 'ResetPassword',
   VERIFY_EMAIL: 'VerifyEmail',
-  
+
   // Core Pages
   HOME: 'Home',
   SEARCH: 'Search',
@@ -126,7 +148,7 @@ export const SCREEN_NAMES = {
   BOOKING: 'Booking',
   BOOKING_PAYMENT: 'BookingPayment',
   BOOKING_CONFIRMATION: 'BookingConfirmation',
-  
+
   // User Dashboard
   DASHBOARD: 'Dashboard',
   DASHBOARD_WELCOME: 'DashboardWelcome',
@@ -134,7 +156,7 @@ export const SCREEN_NAMES = {
   PROFILE: 'Profile',
   ACCOUNT_SETTINGS: 'AccountSettings',
   PREFERENCES: 'Preferences',
-  
+
   // Host Features
   BECOME_HOST: 'BecomeHost',
   BECOME_HOST_REGISTER: 'BecomeHostRegister',
@@ -147,24 +169,24 @@ export const SCREEN_NAMES = {
   HOST_BOOKINGS: 'HostBookings',
   HOST_EARNINGS: 'HostEarnings',
   HOST_PROFILE: 'HostProfile',
-  
+
   // Booking & Travel
   BOOKINGS: 'Bookings',
   TRIPS: 'Trips',
   BOOKING_TERMS: 'BookingTerms',
-  
+
   // Communication & Social
   MESSAGES: 'Messages',
   SAVED: 'Saved',
   WISHLISTS: 'Wishlists',
   FAVORITES: 'Favorites',
-  
+
   // Administrative & Support
   HELP: 'Help',
   KYC_VERIFY: 'KYCVerify',
   ADMIN_KYC: 'AdminKYC',
   CO_HOST_ACCEPT: 'CoHostAccept',
-  
+
   // Navigation
   MAIN_TABS: 'MainTabs',
   PROPERTIES: 'Properties',
@@ -172,6 +194,182 @@ export const SCREEN_NAMES = {
 };
 
 // Typography following luxury theme
+// Global Platform Configuration
+export const PLATFORM = {
+  name: 'Houseiana',
+  description: 'World-class global Airbnb alternative',
+  tagline: 'Starting with strong presence in the Middle East and expanding globally',
+  vision: 'Serve users worldwide with premium luxury hospitality',
+  defaultTimezone: 'UTC',
+  defaultCurrency: 'USD',
+  supportedRegions: ['North America', 'Europe', 'Middle East', 'Asia Pacific', 'Africa', 'South America'],
+};
+
+// Multi-Currency Support
+export const CURRENCIES = {
+  USD: {
+    code: 'USD',
+    symbol: '$',
+    name: 'US Dollar',
+    locale: 'en-US',
+    primary: true,
+  },
+  EUR: {
+    code: 'EUR',
+    symbol: '€',
+    name: 'Euro',
+    locale: 'en-EU',
+  },
+  GBP: {
+    code: 'GBP',
+    symbol: '£',
+    name: 'British Pound',
+    locale: 'en-GB',
+  },
+  QAR: {
+    code: 'QAR',
+    symbol: 'ر.ق',
+    name: 'Qatari Riyal',
+    locale: 'ar-QA',
+  },
+  AUD: {
+    code: 'AUD',
+    symbol: 'A$',
+    name: 'Australian Dollar',
+    locale: 'en-AU',
+  },
+  CAD: {
+    code: 'CAD',
+    symbol: 'C$',
+    name: 'Canadian Dollar',
+    locale: 'en-CA',
+  },
+  AED: {
+    code: 'AED',
+    symbol: 'د.إ',
+    name: 'UAE Dirham',
+    locale: 'ar-AE',
+  },
+  JPY: {
+    code: 'JPY',
+    symbol: '¥',
+    name: 'Japanese Yen',
+    locale: 'ja-JP',
+  },
+};
+
+// Regional Settings
+export const REGIONS = {
+  'North America': {
+    countries: ['US', 'CA', 'MX'],
+    defaultCurrency: 'USD',
+    defaultLanguage: 'en',
+    taxStructure: 'regional_vat',
+  },
+  'Europe': {
+    countries: ['GB', 'FR', 'DE', 'ES', 'IT', 'NL'],
+    defaultCurrency: 'EUR',
+    defaultLanguage: 'en',
+    taxStructure: 'eu_vat',
+  },
+  'Middle East': {
+    countries: ['QA', 'AE', 'SA', 'KW', 'BH', 'OM'],
+    defaultCurrency: 'USD',
+    defaultLanguage: 'en',
+    taxStructure: 'gcc_vat',
+  },
+  'Asia Pacific': {
+    countries: ['AU', 'JP', 'SG', 'HK', 'NZ'],
+    defaultCurrency: 'USD',
+    defaultLanguage: 'en',
+    taxStructure: 'regional_vat',
+  },
+};
+
+// Language Support
+export const LANGUAGES = {
+  en: {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    primary: true,
+  },
+  ar: {
+    code: 'ar',
+    name: 'Arabic',
+    nativeName: 'العربية',
+    rtl: true,
+  },
+  fr: {
+    code: 'fr',
+    name: 'French',
+    nativeName: 'Français',
+  },
+  es: {
+    code: 'es',
+    name: 'Spanish',
+    nativeName: 'Español',
+  },
+  de: {
+    code: 'de',
+    name: 'German',
+    nativeName: 'Deutsch',
+  },
+  ja: {
+    code: 'ja',
+    name: 'Japanese',
+    nativeName: '日本語',
+  },
+};
+
+// Global Payment Methods
+export const PAYMENT_METHODS = {
+  cards: {
+    visa: { name: 'Visa', icon: '💳', global: true },
+    mastercard: { name: 'Mastercard', icon: '💳', global: true },
+    amex: { name: 'American Express', icon: '💳', global: true },
+  },
+  digital_wallets: {
+    paypal: { name: 'PayPal', icon: '📱', regions: ['North America', 'Europe', 'Asia Pacific'] },
+    apple_pay: { name: 'Apple Pay', icon: '📱', regions: ['North America', 'Europe', 'Asia Pacific'] },
+    google_pay: { name: 'Google Pay', icon: '📱', regions: ['North America', 'Europe', 'Asia Pacific'] },
+  },
+  bank_transfers: {
+    sepa: { name: 'SEPA Transfer', icon: '🏦', regions: ['Europe'] },
+    wire: { name: 'Wire Transfer', icon: '🏦', global: true },
+    local_bank: { name: 'Local Bank Transfer', icon: '🏦', global: true },
+  },
+  regional: {
+    alipay: { name: 'Alipay', icon: '📱', regions: ['Asia Pacific'] },
+    wechat_pay: { name: 'WeChat Pay', icon: '📱', regions: ['Asia Pacific'] },
+    paymi: { name: 'PayMe', icon: '📱', regions: ['Middle East'] },
+  },
+};
+
+// Pricing Configuration
+export const PRICING = {
+  defaultCommissionRate: 0.12, // 12% platform fee
+  regionalCommissionRates: {
+    'Middle East': 0.10, // 10% for Middle East launch region
+    'North America': 0.12,
+    'Europe': 0.12,
+    'Asia Pacific': 0.15,
+  },
+  minimumPayoutAmounts: {
+    USD: 50,
+    EUR: 45,
+    GBP: 40,
+    QAR: 180,
+    AUD: 70,
+    CAD: 65,
+  },
+  serviceFeeRanges: {
+    budget: { min: 0.08, max: 0.12 },
+    standard: { min: 0.10, max: 0.15 },
+    luxury: { min: 0.12, max: 0.18 },
+  },
+};
+
 export const TYPOGRAPHY = {
   heading: {
     fontFamily: 'PlayfairDisplay-Bold', // Luxury serif for headings

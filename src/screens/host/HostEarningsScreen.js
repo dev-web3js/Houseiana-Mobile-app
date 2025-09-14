@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,21 +8,21 @@ import {
   RefreshControl,
   Dimensions,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
-import {apiService} from '../../services/api';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
+import { apiService } from '../../services/api';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const HostEarningsScreen = ({navigation}) => {
+const HostEarningsScreen = ({ navigation }) => {
   const [earnings, setEarnings] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState('month');
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const periods = [
-    {key: 'week', label: 'This Week'},
-    {key: 'month', label: 'This Month'},
-    {key: 'year', label: 'This Year'},
+    { key: 'week', label: 'This Week' },
+    { key: 'month', label: 'This Month' },
+    { key: 'year', label: 'This Year' },
   ];
 
   useEffect(() => {
@@ -31,7 +31,9 @@ const HostEarningsScreen = ({navigation}) => {
 
   const loadEarnings = async () => {
     try {
-      const response = await apiService.getHostEarnings({period: selectedPeriod});
+      const response = await apiService.getHostEarnings({
+        period: selectedPeriod,
+      });
       setEarnings(response.data || mockEarnings);
     } catch (error) {
       // Use mock data for development
@@ -56,8 +58,12 @@ const HostEarningsScreen = ({navigation}) => {
   };
 
   const getChangeColor = (change) => {
-    if (change > 0) return COLORS.success;
-    if (change < 0) return COLORS.error;
+    if (change > 0) {
+      return COLORS.success;
+    }
+    if (change < 0) {
+      return COLORS.error;
+    }
     return COLORS.textSecondary;
   };
 
@@ -68,15 +74,16 @@ const HostEarningsScreen = ({navigation}) => {
         {formatCurrency(earnings?.total || 0)}
       </Text>
       <View style={styles.changeContainer}>
-        <Text style={[
-          styles.changeText,
-          {color: getChangeColor(earnings?.change || 0)}
-        ]}>
-          {earnings?.change > 0 ? '+' : ''}{earnings?.change || 0}%
+        <Text
+          style={[
+            styles.changeText,
+            { color: getChangeColor(earnings?.change || 0) },
+          ]}
+        >
+          {earnings?.change > 0 ? '+' : ''}
+          {earnings?.change || 0}%
         </Text>
-        <Text style={styles.changeLabel}>
-          vs last {selectedPeriod}
-        </Text>
+        <Text style={styles.changeLabel}>vs last {selectedPeriod}</Text>
       </View>
     </View>
   );
@@ -108,9 +115,7 @@ const HostEarningsScreen = ({navigation}) => {
     <View style={styles.section}>
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Recent Payouts</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('PayoutHistory')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('PayoutHistory')}>
           <Text style={styles.seeAllText}>See all</Text>
         </TouchableOpacity>
       </View>
@@ -125,10 +130,17 @@ const HostEarningsScreen = ({navigation}) => {
               {new Date(payout.date).toLocaleDateString()}
             </Text>
           </View>
-          <View style={[
-            styles.payoutStatus,
-            {backgroundColor: payout.status === 'completed' ? COLORS.success : COLORS.warning}
-          ]}>
+          <View
+            style={[
+              styles.payoutStatus,
+              {
+                backgroundColor:
+                  payout.status === 'completed'
+                    ? COLORS.success
+                    : COLORS.warning,
+              },
+            ]}
+          >
             <Text style={styles.payoutStatusText}>
               {payout.status === 'completed' ? 'Paid' : 'Pending'}
             </Text>
@@ -141,7 +153,7 @@ const HostEarningsScreen = ({navigation}) => {
   const renderEarningsBreakdown = () => (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Earnings Breakdown</Text>
-      
+
       <View style={styles.breakdownItem}>
         <View style={styles.breakdownInfo}>
           <Text style={styles.breakdownLabel}>Gross earnings</Text>
@@ -221,10 +233,12 @@ const HostEarningsScreen = ({navigation}) => {
             ]}
             onPress={() => setSelectedPeriod(period.key)}
           >
-            <Text style={[
-              styles.periodButtonText,
-              selectedPeriod === period.key && styles.periodButtonTextActive,
-            ]}>
+            <Text
+              style={[
+                styles.periodButtonText,
+                selectedPeriod === period.key && styles.periodButtonTextActive,
+              ]}
+            >
               {period.label}
             </Text>
           </TouchableOpacity>
@@ -247,7 +261,7 @@ const HostEarningsScreen = ({navigation}) => {
         {renderStatsGrid()}
         {renderEarningsBreakdown()}
         {renderRecentPayouts()}
-        
+
         <View style={styles.spacer} />
       </ScrollView>
 
@@ -375,7 +389,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: SPACING.lg,
     shadowColor: COLORS.primary,
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,
@@ -527,7 +541,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.md,
     alignItems: 'center',
     shadowColor: COLORS.primary,
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,

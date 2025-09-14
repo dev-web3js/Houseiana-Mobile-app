@@ -8,25 +8,21 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useAuth} from '../../auth/AuthContext';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
+import { useAuth } from '../../auth/AuthContext';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
 
-const ProfileScreen = ({navigation}) => {
-  const {user, logout} = useAuth();
+const ProfileScreen = ({ navigation }) => {
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {text: 'Cancel', style: 'cancel'},
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: () => logout(),
-        },
-      ]
-    );
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Logout',
+        style: 'destructive',
+        onPress: () => logout(),
+      },
+    ]);
   };
 
   const menuItems = [
@@ -69,7 +65,8 @@ const ProfileScreen = ({navigation}) => {
     <TouchableOpacity
       key={index}
       style={styles.menuItem}
-      onPress={item.onPress}>
+      onPress={item.onPress}
+    >
       <View style={styles.menuIcon}>
         <Icon name={item.icon} size={24} color={COLORS.primary} />
       </View>
@@ -97,9 +94,7 @@ const ProfileScreen = ({navigation}) => {
         </View>
       </View>
 
-      <View style={styles.menu}>
-        {menuItems.map(renderMenuItem)}
-      </View>
+      <View style={styles.menu}>{menuItems.map(renderMenuItem)}</View>
 
       <View style={styles.footer}>
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -170,7 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },

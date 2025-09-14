@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,10 +14,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES, CATEGORIES, SORT_OPTIONS} from '../../shared/constants';
-import {formatPrice} from '../../shared/utils';
+import {
+  COLORS,
+  SPACING,
+  FONT_SIZES,
+  CATEGORIES,
+  SORT_OPTIONS,
+} from '../../shared/constants';
+import { formatPrice } from '../../shared/utils';
 
-const AdvancedSearchScreen = ({navigation, route}) => {
+const AdvancedSearchScreen = ({ navigation, route }) => {
   const [searchParams, setSearchParams] = useState({
     location: '',
     checkIn: '',
@@ -33,16 +39,27 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     sortBy: 'relevance',
     ...route.params?.searchParams,
   });
-  
+
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [showSortModal, setShowSortModal] = useState(false);
   const [totalResults, setTotalResults] = useState(0);
-  
+
   const amenitiesOptions = [
-    'WiFi', 'Kitchen', 'Parking', 'Pool', 'Gym', 'AC', 'Heating',
-    'TV', 'Washer', 'Balcony', 'Garden', 'Security', 'Elevator'
+    'WiFi',
+    'Kitchen',
+    'Parking',
+    'Pool',
+    'Gym',
+    'AC',
+    'Heating',
+    'TV',
+    'Washer',
+    'Balcony',
+    'Garden',
+    'Security',
+    'Elevator',
   ];
 
   useEffect(() => {
@@ -54,18 +71,33 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     try {
       const filters = {
         ...searchParams,
-        category: searchParams.category !== 'all' ? searchParams.category : undefined,
-        propertyType: searchParams.propertyType !== 'all' ? searchParams.propertyType : undefined,
-        minPrice: searchParams.minPrice ? parseFloat(searchParams.minPrice) : undefined,
-        maxPrice: searchParams.maxPrice ? parseFloat(searchParams.maxPrice) : undefined,
-        bedrooms: searchParams.bedrooms ? parseInt(searchParams.bedrooms) : undefined,
-        bathrooms: searchParams.bathrooms ? parseInt(searchParams.bathrooms) : undefined,
+        category:
+          searchParams.category !== 'all' ? searchParams.category : undefined,
+        propertyType:
+          searchParams.propertyType !== 'all'
+            ? searchParams.propertyType
+            : undefined,
+        minPrice: searchParams.minPrice
+          ? parseFloat(searchParams.minPrice)
+          : undefined,
+        maxPrice: searchParams.maxPrice
+          ? parseFloat(searchParams.maxPrice)
+          : undefined,
+        bedrooms: searchParams.bedrooms
+          ? parseInt(searchParams.bedrooms)
+          : undefined,
+        bathrooms: searchParams.bathrooms
+          ? parseInt(searchParams.bathrooms)
+          : undefined,
         guests: searchParams.guests ? parseInt(searchParams.guests) : undefined,
       };
 
       // Remove empty values
-      Object.keys(filters).forEach(key => {
-        if (!filters[key] || (Array.isArray(filters[key]) && filters[key].length === 0)) {
+      Object.keys(filters).forEach((key) => {
+        if (
+          !filters[key] ||
+          (Array.isArray(filters[key]) && filters[key].length === 0)
+        ) {
           delete filters[key];
         }
       });
@@ -82,15 +114,15 @@ const AdvancedSearchScreen = ({navigation, route}) => {
   };
 
   const updateSearchParam = (key, value) => {
-    setSearchParams(prev => ({...prev, [key]: value}));
+    setSearchParams((prev) => ({ ...prev, [key]: value }));
   };
 
   const toggleAmenity = (amenity) => {
-    setSearchParams(prev => ({
+    setSearchParams((prev) => ({
       ...prev,
       amenities: prev.amenities.includes(amenity)
-        ? prev.amenities.filter(a => a !== amenity)
-        : [...prev.amenities, amenity]
+        ? prev.amenities.filter((a) => a !== amenity)
+        : [...prev.amenities, amenity],
     }));
   };
 
@@ -113,12 +145,24 @@ const AdvancedSearchScreen = ({navigation, route}) => {
 
   const getActiveFiltersCount = () => {
     let count = 0;
-    if (searchParams.category !== 'all') count++;
-    if (searchParams.minPrice || searchParams.maxPrice) count++;
-    if (searchParams.bedrooms) count++;
-    if (searchParams.bathrooms) count++;
-    if (searchParams.propertyType !== 'all') count++;
-    if (searchParams.amenities.length > 0) count++;
+    if (searchParams.category !== 'all') {
+      count++;
+    }
+    if (searchParams.minPrice || searchParams.maxPrice) {
+      count++;
+    }
+    if (searchParams.bedrooms) {
+      count++;
+    }
+    if (searchParams.bathrooms) {
+      count++;
+    }
+    if (searchParams.propertyType !== 'all') {
+      count++;
+    }
+    if (searchParams.amenities.length > 0) {
+      count++;
+    }
     return count;
   };
 
@@ -126,10 +170,11 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     <View style={styles.searchHeader}>
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => navigation.goBack()}>
+        onPress={() => navigation.goBack()}
+      >
         <Icon name="arrow-back" size={24} color={COLORS.text} />
       </TouchableOpacity>
-      
+
       <View style={styles.searchInputContainer}>
         <Icon name="search" size={20} color="#717171" />
         <TextInput
@@ -148,34 +193,53 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     <View style={styles.filtersBar}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <TouchableOpacity
-          style={[styles.filterChip, getActiveFiltersCount() > 0 && styles.filterChipActive]}
-          onPress={() => setShowFilters(true)}>
-          <Icon name="tune" size={16} color={getActiveFiltersCount() > 0 ? 'white' : COLORS.text} />
-          <Text style={[styles.filterChipText, getActiveFiltersCount() > 0 && styles.filterChipTextActive]}>
-            Filters {getActiveFiltersCount() > 0 && `(${getActiveFiltersCount()})`}
+          style={[
+            styles.filterChip,
+            getActiveFiltersCount() > 0 && styles.filterChipActive,
+          ]}
+          onPress={() => setShowFilters(true)}
+        >
+          <Icon
+            name="tune"
+            size={16}
+            color={getActiveFiltersCount() > 0 ? 'white' : COLORS.text}
+          />
+          <Text
+            style={[
+              styles.filterChipText,
+              getActiveFiltersCount() > 0 && styles.filterChipTextActive,
+            ]}
+          >
+            Filters{' '}
+            {getActiveFiltersCount() > 0 && `(${getActiveFiltersCount()})`}
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.filterChip}
-          onPress={() => setShowSortModal(true)}>
+          onPress={() => setShowSortModal(true)}
+        >
           <Icon name="sort" size={16} color={COLORS.text} />
           <Text style={styles.filterChipText}>Sort</Text>
         </TouchableOpacity>
 
-        {CATEGORIES.slice(0, 6).map(category => (
+        {CATEGORIES.slice(0, 6).map((category) => (
           <TouchableOpacity
             key={category.id}
             style={[
               styles.filterChip,
               searchParams.category === category.id && styles.filterChipActive,
             ]}
-            onPress={() => updateSearchParam('category', category.id)}>
+            onPress={() => updateSearchParam('category', category.id)}
+          >
             <Text style={styles.categoryEmoji}>{category.icon}</Text>
-            <Text style={[
-              styles.filterChipText,
-              searchParams.category === category.id && styles.filterChipTextActive,
-            ]}>
+            <Text
+              style={[
+                styles.filterChipText,
+                searchParams.category === category.id &&
+                  styles.filterChipTextActive,
+              ]}
+            >
               {category.name}
             </Text>
           </TouchableOpacity>
@@ -195,21 +259,26 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     </View>
   );
 
-  const renderPropertyCard = ({item}) => (
+  const renderPropertyCard = ({ item }) => (
     <TouchableOpacity
       style={styles.propertyCard}
-      onPress={() => navigation.navigate('PropertyDetail', {propertyId: item.id})}>
-      <Image 
+      onPress={() =>
+        navigation.navigate('PropertyDetail', { propertyId: item.id })
+      }
+    >
+      <Image
         source={{
-          uri: item.photos?.[0] || 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop'
-        }} 
-        style={styles.propertyImage} 
+          uri:
+            item.photos?.[0] ||
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop',
+        }}
+        style={styles.propertyImage}
       />
-      
+
       <TouchableOpacity style={styles.favoriteButton}>
         <Icon name="favorite-border" size={20} color="white" />
       </TouchableOpacity>
-      
+
       <View style={styles.propertyInfo}>
         <View style={styles.propertyHeader}>
           <Text style={styles.propertyTitle} numberOfLines={1}>
@@ -224,18 +293,20 @@ const AdvancedSearchScreen = ({navigation, route}) => {
             </View>
           )}
         </View>
-        
+
         <Text style={styles.propertyLocation}>
           {item.area}, {item.city}
         </Text>
-        
+
         <Text style={styles.propertyDetails}>
           {item.bedrooms} bed · {item.bathrooms} bath · {item.area} sq ft
         </Text>
-        
+
         <View style={styles.priceContainer}>
           <Text style={styles.propertyPrice}>
-            QAR {item.monthlyPrice?.toLocaleString() || item.price?.toLocaleString()}
+            QAR{' '}
+            {item.monthlyPrice?.toLocaleString() ||
+              item.price?.toLocaleString()}
           </Text>
           <Text style={styles.priceUnit}> / night</Text>
         </View>
@@ -247,7 +318,8 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     <Modal
       isVisible={showFilters}
       style={styles.modal}
-      onBackdropPress={() => setShowFilters(false)}>
+      onBackdropPress={() => setShowFilters(false)}
+    >
       <View style={styles.modalContent}>
         <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}>Filters</Text>
@@ -283,18 +355,30 @@ const AdvancedSearchScreen = ({navigation, route}) => {
           <View style={styles.filterSection}>
             <Text style={styles.filterSectionTitle}>Bedrooms</Text>
             <View style={styles.numberSelector}>
-              {['Any', '1', '2', '3', '4', '5+'].map(num => (
+              {['Any', '1', '2', '3', '4', '5+'].map((num) => (
                 <TouchableOpacity
                   key={num}
                   style={[
                     styles.numberButton,
-                    searchParams.bedrooms === (num === 'Any' ? '' : num === '5+' ? '5' : num) && styles.numberButtonActive,
+                    searchParams.bedrooms ===
+                      (num === 'Any' ? '' : num === '5+' ? '5' : num) &&
+                      styles.numberButtonActive,
                   ]}
-                  onPress={() => updateSearchParam('bedrooms', num === 'Any' ? '' : num === '5+' ? '5' : num)}>
-                  <Text style={[
-                    styles.numberButtonText,
-                    searchParams.bedrooms === (num === 'Any' ? '' : num === '5+' ? '5' : num) && styles.numberButtonTextActive,
-                  ]}>
+                  onPress={() =>
+                    updateSearchParam(
+                      'bedrooms',
+                      num === 'Any' ? '' : num === '5+' ? '5' : num
+                    )
+                  }
+                >
+                  <Text
+                    style={[
+                      styles.numberButtonText,
+                      searchParams.bedrooms ===
+                        (num === 'Any' ? '' : num === '5+' ? '5' : num) &&
+                        styles.numberButtonTextActive,
+                    ]}
+                  >
                     {num}
                   </Text>
                 </TouchableOpacity>
@@ -305,18 +389,30 @@ const AdvancedSearchScreen = ({navigation, route}) => {
           <View style={styles.filterSection}>
             <Text style={styles.filterSectionTitle}>Bathrooms</Text>
             <View style={styles.numberSelector}>
-              {['Any', '1', '2', '3', '4+'].map(num => (
+              {['Any', '1', '2', '3', '4+'].map((num) => (
                 <TouchableOpacity
                   key={num}
                   style={[
                     styles.numberButton,
-                    searchParams.bathrooms === (num === 'Any' ? '' : num === '4+' ? '4' : num) && styles.numberButtonActive,
+                    searchParams.bathrooms ===
+                      (num === 'Any' ? '' : num === '4+' ? '4' : num) &&
+                      styles.numberButtonActive,
                   ]}
-                  onPress={() => updateSearchParam('bathrooms', num === 'Any' ? '' : num === '4+' ? '4' : num)}>
-                  <Text style={[
-                    styles.numberButtonText,
-                    searchParams.bathrooms === (num === 'Any' ? '' : num === '4+' ? '4' : num) && styles.numberButtonTextActive,
-                  ]}>
+                  onPress={() =>
+                    updateSearchParam(
+                      'bathrooms',
+                      num === 'Any' ? '' : num === '4+' ? '4' : num
+                    )
+                  }
+                >
+                  <Text
+                    style={[
+                      styles.numberButtonText,
+                      searchParams.bathrooms ===
+                        (num === 'Any' ? '' : num === '4+' ? '4' : num) &&
+                        styles.numberButtonTextActive,
+                    ]}
+                  >
                     {num}
                   </Text>
                 </TouchableOpacity>
@@ -328,18 +424,23 @@ const AdvancedSearchScreen = ({navigation, route}) => {
           <View style={styles.filterSection}>
             <Text style={styles.filterSectionTitle}>Amenities</Text>
             <View style={styles.amenitiesGrid}>
-              {amenitiesOptions.map(amenity => (
+              {amenitiesOptions.map((amenity) => (
                 <TouchableOpacity
                   key={amenity}
                   style={[
                     styles.amenityChip,
-                    searchParams.amenities.includes(amenity) && styles.amenityChipActive,
+                    searchParams.amenities.includes(amenity) &&
+                      styles.amenityChipActive,
                   ]}
-                  onPress={() => toggleAmenity(amenity)}>
-                  <Text style={[
-                    styles.amenityChipText,
-                    searchParams.amenities.includes(amenity) && styles.amenityChipTextActive,
-                  ]}>
+                  onPress={() => toggleAmenity(amenity)}
+                >
+                  <Text
+                    style={[
+                      styles.amenityChipText,
+                      searchParams.amenities.includes(amenity) &&
+                        styles.amenityChipTextActive,
+                    ]}
+                  >
                     {amenity}
                   </Text>
                 </TouchableOpacity>
@@ -352,13 +453,14 @@ const AdvancedSearchScreen = ({navigation, route}) => {
           <TouchableOpacity style={styles.clearButton} onPress={clearFilters}>
             <Text style={styles.clearButtonText}>Clear All</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.applyButton} 
+
+          <TouchableOpacity
+            style={styles.applyButton}
             onPress={() => {
               setShowFilters(false);
               searchProperties();
-            }}>
+            }}
+          >
             <Text style={styles.applyButtonText}>Show Results</Text>
           </TouchableOpacity>
         </View>
@@ -370,21 +472,26 @@ const AdvancedSearchScreen = ({navigation, route}) => {
     <Modal
       isVisible={showSortModal}
       style={styles.sortModal}
-      onBackdropPress={() => setShowSortModal(false)}>
+      onBackdropPress={() => setShowSortModal(false)}
+    >
       <View style={styles.sortContent}>
         <Text style={styles.modalTitle}>Sort by</Text>
-        {SORT_OPTIONS.map(option => (
+        {SORT_OPTIONS.map((option) => (
           <TouchableOpacity
             key={option.value}
             style={styles.sortOption}
             onPress={() => {
               updateSearchParam('sortBy', option.value);
               setShowSortModal(false);
-            }}>
-            <Text style={[
-              styles.sortOptionText,
-              searchParams.sortBy === option.value && styles.sortOptionTextActive,
-            ]}>
+            }}
+          >
+            <Text
+              style={[
+                styles.sortOptionText,
+                searchParams.sortBy === option.value &&
+                  styles.sortOptionTextActive,
+              ]}
+            >
               {option.label}
             </Text>
             {searchParams.sortBy === option.value && (
@@ -401,7 +508,7 @@ const AdvancedSearchScreen = ({navigation, route}) => {
       {renderSearchHeader()}
       {renderFiltersBar()}
       {renderResultsHeader()}
-      
+
       <FlatList
         data={properties}
         renderItem={renderPropertyCard}
@@ -517,7 +624,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.lg,
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     overflow: 'hidden',

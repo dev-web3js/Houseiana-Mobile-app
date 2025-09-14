@@ -1,25 +1,23 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import BookingScreen from './BookingScreen';
 
 // Mock property data for stories
 const mockProperty = {
   id: '1',
   title: 'Luxury Villa in The Pearl',
-  description: 'Beautiful luxury villa with stunning sea views in The Pearl-Qatar',
+  description:
+    'Beautiful luxury villa with stunning sea views in The Pearl-Qatar',
   price: 850,
   area: 'The Pearl',
   city: 'Doha',
-  latitude: 25.3700,
+  latitude: 25.37,
   longitude: 51.5373,
   bedrooms: 4,
   bathrooms: 3,
   guests: 8,
   amenities: ['WiFi', 'Pool', 'Parking', 'Kitchen', 'AC'],
-  images: [
-    'https://example.com/villa1.jpg',
-    'https://example.com/villa2.jpg',
-  ],
+  images: ['https://example.com/villa1.jpg', 'https://example.com/villa2.jpg'],
   host: {
     id: 'host1',
     name: 'Ahmad Al-Rashid',

@@ -36,7 +36,10 @@ class PropertiesService {
 
   // Additional methods available through the mobile API service
   async uploadPropertyImages(imagesData) {
-    return mobileApiService.uploadMultipleImages(imagesData, '/properties/images');
+    return mobileApiService.uploadMultipleImages(
+      imagesData,
+      '/properties/images'
+    );
   }
 
   async getPropertyReviews(propertyId) {

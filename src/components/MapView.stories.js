@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import PropertyMapView from './MapView';
 
 // Mock property data for stories
@@ -7,7 +7,7 @@ const mockProperties = [
   {
     id: '1',
     title: 'Luxury Villa in The Pearl',
-    latitude: 25.3700,
+    latitude: 25.37,
     longitude: 51.5373,
     price: 850,
     area: 'The Pearl',
@@ -41,7 +41,7 @@ const meta = {
   component: PropertyMapView,
   decorators: [
     (Story) => (
-      <View style={{flex: 1, height: 400}}>
+      <View style={{ flex: 1, height: 400 }}>
         <Story />
       </View>
     ),
@@ -53,12 +53,12 @@ const meta = {
       defaultValue: true,
     },
     showPrices: {
-      control: 'boolean', 
+      control: 'boolean',
       description: 'Display property prices on markers',
       defaultValue: true,
     },
     searchRadius: {
-      control: {type: 'number', min: 1, max: 50, step: 1},
+      control: { type: 'number', min: 1, max: 50, step: 1 },
       description: 'Search radius in kilometers',
     },
   },
@@ -128,7 +128,7 @@ export const CustomRegion = {
     properties: mockProperties,
     initialRegion: {
       latitude: 25.2854,
-      longitude: 51.5310,
+      longitude: 51.531,
       latitudeDelta: 0.1,
       longitudeDelta: 0.1,
     },

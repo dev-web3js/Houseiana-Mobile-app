@@ -1,6 +1,6 @@
 import React from 'react';
-import {View} from 'react-native';
-import {action} from '@storybook/addon-actions';
+import { View } from 'react-native';
+import { action } from '@storybook/addon-actions';
 import Button from './Button';
 
 const meta = {
@@ -8,7 +8,7 @@ const meta = {
   component: Button,
   decorators: [
     (Story) => (
-      <View style={{padding: 20, backgroundColor: '#f5f5f5'}}>
+      <View style={{ padding: 20, backgroundColor: '#f5f5f5' }}>
         <Story />
       </View>
     ),
@@ -20,13 +20,13 @@ const meta = {
       defaultValue: 'Button',
     },
     variant: {
-      control: {type: 'select'},
+      control: { type: 'select' },
       options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
       description: 'Button visual style variant',
       defaultValue: 'primary',
     },
     size: {
-      control: {type: 'select'},
+      control: { type: 'select' },
       options: ['small', 'medium', 'large'],
       description: 'Button size',
       defaultValue: 'medium',
@@ -51,7 +51,7 @@ const meta = {
       description: 'Material icon name to display',
     },
     iconPosition: {
-      control: {type: 'select'},
+      control: { type: 'select' },
       options: ['left', 'right'],
       description: 'Position of the icon',
       defaultValue: 'left',

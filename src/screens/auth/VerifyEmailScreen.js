@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,17 +8,17 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
-import {apiService} from '../../services/api';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
+import { apiService } from '../../services/api';
 
-const VerifyEmailScreen = ({navigation, route}) => {
+const VerifyEmailScreen = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [countdown, setCountdown] = useState(60);
   const [canResend, setCanResend] = useState(false);
 
-  const {email, token} = route.params || {};
+  const { email, token } = route.params || {};
 
   useEffect(() => {
     // If token is provided, automatically verify
@@ -44,23 +44,23 @@ const VerifyEmailScreen = ({navigation, route}) => {
   const handleTokenVerification = async (verificationToken) => {
     setIsLoading(true);
     try {
-      await apiService.verifyEmail({token: verificationToken});
+      await apiService.verifyEmail({ token: verificationToken });
       setIsVerified(true);
-      
+
       // Auto navigate to dashboard after 3 seconds
       setTimeout(() => {
         navigation.reset({
           index: 0,
-          routes: [{name: 'MainTabs'}],
+          routes: [{ name: 'MainTabs' }],
         });
       }, 3000);
     } catch (error) {
       Alert.alert(
-        'Verification Failed', 
+        'Verification Failed',
         error.message || 'The verification link is invalid or expired.',
         [
-          {text: 'Resend Email', onPress: handleResendVerification},
-          {text: 'OK', style: 'cancel'},
+          { text: 'Resend Email', onPress: handleResendVerification },
+          { text: 'OK', style: 'cancel' },
         ]
       );
     } finally {
@@ -76,16 +76,16 @@ const VerifyEmailScreen = ({navigation, route}) => {
 
     setIsResending(true);
     try {
-      await apiService.resendVerification({email});
+      await apiService.resendVerification({ email });
       Alert.alert(
-        'Email Sent', 
+        'Email Sent',
         'A new verification email has been sent to your address.'
       );
-      
+
       // Reset countdown
       setCountdown(60);
       setCanResend(false);
-      
+
       const timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
@@ -97,7 +97,10 @@ const VerifyEmailScreen = ({navigation, route}) => {
         });
       }, 1000);
     } catch (error) {
-      Alert.alert('Error', error.message || 'Failed to send verification email');
+      Alert.alert(
+        'Error',
+        error.message || 'Failed to send verification email'
+      );
     } finally {
       setIsResending(false);
     }
@@ -108,11 +111,15 @@ const VerifyEmailScreen = ({navigation, route}) => {
       'Skip Verification?',
       'You can verify your email later in account settings. Some features may be limited.',
       [
-        {text: 'Continue Anyway', onPress: () => navigation.reset({
-          index: 0,
-          routes: [{name: 'MainTabs'}],
-        })},
-        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Continue Anyway',
+          onPress: () =>
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'MainTabs' }],
+            }),
+        },
+        { text: 'Cancel', style: 'cancel' },
       ]
     );
   };
@@ -136,18 +143,21 @@ const VerifyEmailScreen = ({navigation, route}) => {
             <View style={styles.successIcon}>
               <Text style={styles.successIconText}>✓</Text>
             </View>
-            
+
             <Text style={styles.successTitle}>Email Verified!</Text>
             <Text style={styles.successMessage}>
-              Your email has been successfully verified. You now have full access to all Houseiana features.
+              Your email has been successfully verified. You now have full
+              access to all Houseiana features.
             </Text>
-            
+
             <TouchableOpacity
               style={styles.continueButton}
-              onPress={() => navigation.reset({
-                index: 0,
-                routes: [{name: 'MainTabs'}],
-              })}
+              onPress={() =>
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'MainTabs' }],
+                })
+              }
             >
               <Text style={styles.continueButtonText}>Continue to App</Text>
             </TouchableOpacity>
@@ -181,7 +191,7 @@ const VerifyEmailScreen = ({navigation, route}) => {
           </Text>
 
           <Text style={styles.instructionText}>
-            Click the verification link in the email to activate your account. 
+            Click the verification link in the email to activate your account.
             The link will expire in 24 hours.
           </Text>
 
@@ -189,7 +199,7 @@ const VerifyEmailScreen = ({navigation, route}) => {
             <TouchableOpacity
               style={[
                 styles.resendButton,
-                !canResend && styles.resendButtonDisabled
+                !canResend && styles.resendButtonDisabled,
               ]}
               onPress={handleResendVerification}
               disabled={!canResend || isResending}
@@ -197,10 +207,12 @@ const VerifyEmailScreen = ({navigation, route}) => {
               {isResending ? (
                 <ActivityIndicator color={COLORS.primary} size="small" />
               ) : (
-                <Text style={[
-                  styles.resendButtonText,
-                  !canResend && styles.resendButtonTextDisabled
-                ]}>
+                <Text
+                  style={[
+                    styles.resendButtonText,
+                    !canResend && styles.resendButtonTextDisabled,
+                  ]}
+                >
                   {canResend ? 'Resend Email' : `Resend in ${countdown}s`}
                 </Text>
               )}
@@ -217,9 +229,8 @@ const VerifyEmailScreen = ({navigation, route}) => {
           <View style={styles.helpSection}>
             <Text style={styles.helpTitle}>Didn't receive the email?</Text>
             <Text style={styles.helpText}>
-              • Check your spam or junk folder{'\n'}
-              • Make sure {email} is correct{'\n'}
-              • Try resending the verification email
+              • Check your spam or junk folder{'\n'}• Make sure {email} is
+              correct{'\n'}• Try resending the verification email
             </Text>
           </View>
 
@@ -228,7 +239,7 @@ const VerifyEmailScreen = ({navigation, route}) => {
             onPress={() => {
               navigation.reset({
                 index: 0,
-                routes: [{name: 'Register'}],
+                routes: [{ name: 'Register' }],
               });
             }}
           >
@@ -414,7 +425,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.md,
     paddingHorizontal: SPACING.xl,
     shadowColor: COLORS.primary,
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,

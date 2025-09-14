@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,26 +7,30 @@ import {
   StyleSheet,
   Alert,
   Image,
-} from 'react-native';
-import DatePicker from 'react-native-date-picker';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import mobileApiService from '../../services/api';
-import {useAuth} from '../../auth/AuthContext';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
-import {formatPrice, formatDate} from '../../shared/utils';
+} from "react-native";
+import DatePicker from "react-native-date-picker";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import mobileApiService from "../../services/api";
+import { useAuth } from "../../auth/AuthContext";
+import { COLORS, SPACING, FONT_SIZES } from "../../shared/constants";
+import { formatPrice, formatDate } from "../../shared/utils";
 
-const BookingScreen = ({route, navigation}) => {
-  const {propertyId, preselectedDates} = route.params;
-  const {user} = useAuth();
-  
+const BookingScreen = ({ route, navigation }) => {
+  const { propertyId, preselectedDates } = route.params;
+  const { user } = useAuth();
+
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [checkIn, setCheckIn] = useState(preselectedDates?.checkIn || new Date());
-  const [checkOut, setCheckOut] = useState(preselectedDates?.checkOut || new Date(Date.now() + 86400000));
+  const [checkIn, setCheckIn] = useState(
+    preselectedDates?.checkIn || new Date()
+  );
+  const [checkOut, setCheckOut] = useState(
+    preselectedDates?.checkOut || new Date(Date.now() + 86400000)
+  );
   const [guests, setGuests] = useState(1);
   const [showCheckInPicker, setShowCheckInPicker] = useState(false);
   const [showCheckOutPicker, setShowCheckOutPicker] = useState(false);
-  const [specialRequests, setSpecialRequests] = useState('');
+  const [specialRequests, setSpecialRequests] = useState("");
   const [bookingDetails, setBookingDetails] = useState(null);
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const BookingScreen = ({route, navigation}) => {
       const propertyData = await mobileApiService.getProperty(propertyId);
       setProperty(propertyData);
     } catch (error) {
-      Alert.alert('Error', 'Failed to load property details');
+      Alert.alert("Error", "Failed to load property details");
       navigation.goBack();
     } finally {
       setLoading(false);
@@ -52,7 +56,7 @@ const BookingScreen = ({route, navigation}) => {
   };
 
   const calculateBookingDetails = () => {
-    if (!property || !checkIn || !checkOut) return;
+    if (!property || !checkIn || !checkOut) {return;}
 
     const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
     const basePrice = property.price * nights;
@@ -73,9 +77,9 @@ const BookingScreen = ({route, navigation}) => {
 
   const handleBooking = async () => {
     if (!user) {
-      Alert.alert('Login Required', 'Please log in to make a booking', [
-        {text: 'Cancel', style: 'cancel'},
-        {text: 'Login', onPress: () => navigation.navigate('Login')}
+      Alert.alert("Login Required", "Please log in to make a booking", [
+        { text: "Cancel", style: "cancel" },
+        { text: "Login", onPress: () => navigation.navigate("Login") },
       ]);
       return;
     }
@@ -92,8 +96,8 @@ const BookingScreen = ({route, navigation}) => {
       };
 
       const booking = await mobileApiService.createBooking(bookingData);
-      
-      navigation.navigate('BookingConfirmation', {
+
+      navigation.navigate("BookingConfirmation", {
         bookingId: booking.id,
         property,
         bookingDetails: {
@@ -102,7 +106,7 @@ const BookingScreen = ({route, navigation}) => {
         },
       });
     } catch (error) {
-      Alert.alert('Booking Failed', error.message);
+      Alert.alert("Booking Failed", error.message);
     }
   };
 
@@ -134,7 +138,8 @@ const BookingScreen = ({route, navigation}) => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}>
+          onPress={() => navigation.goBack()}
+        >
           <Icon name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Book Your Stay</Text>
@@ -144,21 +149,29 @@ const BookingScreen = ({route, navigation}) => {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Property Summary */}
         <View style={styles.propertyCard}>
-          <Image 
-            source={{uri: property.photos?.[0] || 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop'}} 
-            style={styles.propertyImage} 
+          <Image
+            source={{
+              uri:
+                property.photos?.[0] ||
+                "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+            }}
+            style={styles.propertyImage}
           />
           <View style={styles.propertyInfo}>
             <Text style={styles.propertyTitle}>{property.title}</Text>
-            <Text style={styles.propertyLocation}>{property.area}, {property.city}</Text>
+            <Text style={styles.propertyLocation}>
+              {property.area}, {property.city}
+            </Text>
             <Text style={styles.propertyType}>
-              {property.bedrooms} bed • {property.bathrooms} bath • {property.type}
+              {property.bedrooms} bed • {property.bathrooms} bath •{" "}
+              {property.type}
             </Text>
             {property.averageRating > 0 && (
               <View style={styles.ratingContainer}>
                 <Icon name="star" size={16} color="#FFD700" />
                 <Text style={styles.ratingText}>
-                  {property.averageRating.toFixed(1)} ({property.reviewCount} reviews)
+                  {property.averageRating.toFixed(1)} ({property.reviewCount}{" "}
+                  reviews)
                 </Text>
               </View>
             )}
@@ -168,22 +181,28 @@ const BookingScreen = ({route, navigation}) => {
         {/* Date Selection */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Dates</Text>
-          
+
           <View style={styles.dateContainer}>
             <TouchableOpacity
               style={styles.dateButton}
-              onPress={() => setShowCheckInPicker(true)}>
+              onPress={() => setShowCheckInPicker(true)}
+            >
               <Text style={styles.dateLabel}>Check-in</Text>
               <Text style={styles.dateValue}>{formatDate(checkIn)}</Text>
             </TouchableOpacity>
 
             <View style={styles.dateSeparator}>
-              <Icon name="arrow-forward" size={20} color={COLORS.textSecondary} />
+              <Icon
+                name="arrow-forward"
+                size={20}
+                color={COLORS.textSecondary}
+              />
             </View>
 
             <TouchableOpacity
               style={styles.dateButton}
-              onPress={() => setShowCheckOutPicker(true)}>
+              onPress={() => setShowCheckOutPicker(true)}
+            >
               <Text style={styles.dateLabel}>Check-out</Text>
               <Text style={styles.dateValue}>{formatDate(checkOut)}</Text>
             </TouchableOpacity>
@@ -191,7 +210,8 @@ const BookingScreen = ({route, navigation}) => {
 
           {bookingDetails && (
             <Text style={styles.nightsText}>
-              {bookingDetails.nights} night{bookingDetails.nights > 1 ? 's' : ''}
+              {bookingDetails.nights} night
+              {bookingDetails.nights > 1 ? "s" : ""}
             </Text>
           )}
         </View>
@@ -199,28 +219,51 @@ const BookingScreen = ({route, navigation}) => {
         {/* Guests Selection */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Guests</Text>
-          
+
           <View style={styles.guestsContainer}>
             <View style={styles.guestsInfo}>
               <Text style={styles.guestsLabel}>Number of guests</Text>
-              <Text style={styles.guestsLimit}>Max {property.maxGuests || 10} guests</Text>
+              <Text style={styles.guestsLimit}>
+                Max {property.maxGuests || 10} guests
+              </Text>
             </View>
-            
+
             <View style={styles.guestsControls}>
               <TouchableOpacity
-                style={[styles.guestButton, guests <= 1 && styles.guestButtonDisabled]}
+                style={[
+                  styles.guestButton,
+                  guests <= 1 && styles.guestButtonDisabled,
+                ]}
                 onPress={() => adjustGuests(-1)}
-                disabled={guests <= 1}>
-                <Icon name="remove" size={20} color={guests <= 1 ? COLORS.border : COLORS.text} />
+                disabled={guests <= 1}
+              >
+                <Icon
+                  name="remove"
+                  size={20}
+                  color={guests <= 1 ? COLORS.border : COLORS.text}
+                />
               </TouchableOpacity>
-              
+
               <Text style={styles.guestsCount}>{guests}</Text>
-              
+
               <TouchableOpacity
-                style={[styles.guestButton, guests >= (property.maxGuests || 10) && styles.guestButtonDisabled]}
+                style={[
+                  styles.guestButton,
+                  guests >= (property.maxGuests || 10) &&
+                    styles.guestButtonDisabled,
+                ]}
                 onPress={() => adjustGuests(1)}
-                disabled={guests >= (property.maxGuests || 10)}>
-                <Icon name="add" size={20} color={guests >= (property.maxGuests || 10) ? COLORS.border : COLORS.text} />
+                disabled={guests >= (property.maxGuests || 10)}
+              >
+                <Icon
+                  name="add"
+                  size={20}
+                  color={
+                    guests >= (property.maxGuests || 10)
+                      ? COLORS.border
+                      : COLORS.text
+                  }
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -241,33 +284,40 @@ const BookingScreen = ({route, navigation}) => {
         {bookingDetails && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Price Details</Text>
-            
+
             <View style={styles.priceBreakdown}>
               <View style={styles.priceRow}>
                 <Text style={styles.priceLabel}>
-                  {formatPrice(property.price)} x {bookingDetails.nights} night{bookingDetails.nights > 1 ? 's' : ''}
+                  {formatPrice(property.price)} x {bookingDetails.nights} night
+                  {bookingDetails.nights > 1 ? "s" : ""}
                 </Text>
-                <Text style={styles.priceValue}>{formatPrice(bookingDetails.basePrice)}</Text>
-              </View>
-              
+                <Text style={styles.priceValue}>
+                  {formatPrice(bookingDetails.basePrice)}
+                </Text>
+
               <View style={styles.priceRow}>
                 <Text style={styles.priceLabel}>Service fee</Text>
-                <Text style={styles.priceValue}>{formatPrice(bookingDetails.serviceFee)}</Text>
-              </View>
-              
+                <Text style={styles.priceValue}>
+                  {formatPrice(bookingDetails.serviceFee)}
+                </Text>
+
               <View style={styles.priceRow}>
                 <Text style={styles.priceLabel}>Cleaning fee</Text>
-                <Text style={styles.priceValue}>{formatPrice(bookingDetails.cleaningFee)}</Text>
-              </View>
-              
+                <Text style={styles.priceValue}>
+                  {formatPrice(bookingDetails.cleaningFee)}
+                </Text>
+
               <View style={styles.priceRow}>
                 <Text style={styles.priceLabel}>Taxes</Text>
-                <Text style={styles.priceValue}>{formatPrice(bookingDetails.taxes)}</Text>
-              </View>
-              
+                <Text style={styles.priceValue}>
+                  {formatPrice(bookingDetails.taxes)}
+                </Text>
+
               <View style={[styles.priceRow, styles.totalRow]}>
                 <Text style={styles.totalLabel}>Total</Text>
-                <Text style={styles.totalValue}>{formatPrice(bookingDetails.total)}</Text>
+                <Text style={styles.totalValue}>
+                  {formatPrice(bookingDetails.total)}
+                </Text>
               </View>
             </View>
           </View>
@@ -281,7 +331,7 @@ const BookingScreen = ({route, navigation}) => {
               <Icon name="person" size={24} color={COLORS.textSecondary} />
             </View>
             <View style={styles.hostDetails}>
-              <Text style={styles.hostName}>{property.hostName || 'Host'}</Text>
+              <Text style={styles.hostName}>{property.hostName || "Host"}</Text>
               <Text style={styles.hostJoined}>Joined in 2023</Text>
             </View>
           </View>
@@ -291,7 +341,8 @@ const BookingScreen = ({route, navigation}) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Cancellation Policy</Text>
           <Text style={styles.policyText}>
-            Free cancellation for 48 hours. After that, cancel up to 7 days before check-in and get a 50% refund, minus service fees.
+            Free cancellation for 48 hours. After that, cancel up to 7 days
+            before check-in and get a 50% refund, minus service fees.
           </Text>
         </View>
       </ScrollView>
@@ -301,14 +352,17 @@ const BookingScreen = ({route, navigation}) => {
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total</Text>
           <Text style={styles.totalAmount}>
-            {bookingDetails ? formatPrice(bookingDetails.total) : formatPrice(0)}
+            {bookingDetails
+              ? formatPrice(bookingDetails.total)
+              : formatPrice(0)}
           </Text>
         </View>
-        
+
         <TouchableOpacity
           style={styles.bookButton}
           onPress={handleBooking}
-          disabled={!bookingDetails}>
+          disabled={!bookingDetails}
+        >
           <Text style={styles.bookButtonText}>Book Now</Text>
         </TouchableOpacity>
       </View>
@@ -353,8 +407,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
     fontSize: FONT_SIZES.md,
@@ -362,8 +416,8 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorText: {
     fontSize: FONT_SIZES.md,
@@ -371,9 +425,9 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: COLORS.background,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: SPACING.lg,
     paddingVertical: SPACING.md,
     borderBottomWidth: 1,
@@ -384,7 +438,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: FONT_SIZES.lg,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
   },
   placeholder: {
@@ -395,14 +449,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.lg,
   },
   propertyCard: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: COLORS.surface,
     borderRadius: 12,
     padding: SPACING.md,
     marginVertical: SPACING.md,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
@@ -417,7 +471,7 @@ const styles = StyleSheet.create({
   },
   propertyTitle: {
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
     marginBottom: SPACING.xs,
   },
@@ -432,8 +486,8 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
   ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: SPACING.xs,
   },
   ratingText: {
@@ -448,14 +502,14 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
     marginBottom: SPACING.md,
   },
   dateContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   dateButton: {
     flex: 1,
@@ -463,7 +517,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     borderRadius: 8,
     padding: SPACING.md,
-    alignItems: 'center',
+    alignItems: "center",
   },
   dateSeparator: {
     marginHorizontal: SPACING.md,
@@ -476,18 +530,18 @@ const styles = StyleSheet.create({
   dateValue: {
     fontSize: FONT_SIZES.sm,
     color: COLORS.text,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   nightsText: {
     fontSize: FONT_SIZES.sm,
     color: COLORS.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: SPACING.md,
   },
   guestsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   guestsInfo: {
     flex: 1,
@@ -495,15 +549,15 @@ const styles = StyleSheet.create({
   guestsLabel: {
     fontSize: FONT_SIZES.sm,
     color: COLORS.text,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   guestsLimit: {
     fontSize: FONT_SIZES.xs,
     color: COLORS.textSecondary,
   },
   guestsControls: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: SPACING.md,
   },
   guestButton: {
@@ -512,8 +566,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: COLORS.border,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   guestButtonDisabled: {
     borderColor: COLORS.border,
@@ -522,9 +576,9 @@ const styles = StyleSheet.create({
   guestsCount: {
     fontSize: FONT_SIZES.md,
     color: COLORS.text,
-    fontWeight: '500',
+    fontWeight: "500",
     minWidth: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   requestsContainer: {
     borderWidth: 1,
@@ -541,9 +595,9 @@ const styles = StyleSheet.create({
     gap: SPACING.md,
   },
   priceRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   priceLabel: {
     fontSize: FONT_SIZES.sm,
@@ -560,17 +614,17 @@ const styles = StyleSheet.create({
   },
   totalLabel: {
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
   },
   totalValue: {
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
   },
   hostInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: SPACING.md,
   },
   hostAvatar: {
@@ -578,8 +632,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     backgroundColor: COLORS.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -588,7 +642,7 @@ const styles = StyleSheet.create({
   },
   hostName: {
     fontSize: FONT_SIZES.md,
-    fontWeight: '500',
+    fontWeight: "500",
     color: COLORS.text,
   },
   hostJoined: {
@@ -605,9 +659,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
     padding: SPACING.lg,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   totalContainer: {
     flex: 1,
@@ -618,7 +672,7 @@ const styles = StyleSheet.create({
   },
   totalAmount: {
     fontSize: FONT_SIZES.lg,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
   },
   bookButton: {
@@ -631,7 +685,7 @@ const styles = StyleSheet.create({
   bookButtonText: {
     color: COLORS.background,
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 

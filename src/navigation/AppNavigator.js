@@ -1,10 +1,10 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {useAuth} from '../auth/AuthContext';
-import {COLORS} from '../shared/constants';
+import { useAuth } from '../auth/AuthContext';
+import { COLORS } from '../shared/constants';
 
 // Auth Screens
 import LoginScreen from '../screens/auth/LoginScreen';
@@ -48,6 +48,10 @@ import WishlistsScreen from '../screens/saved/WishlistsScreen';
 // Support Screens
 import HelpScreen from '../screens/support/HelpScreen';
 
+// KYC & Payment Screens
+import KYCVerificationScreen from '../screens/kyc/KYCVerificationScreen';
+import PaymentMethodsScreen from '../screens/payment/PaymentMethodsScreen';
+
 // Map Screen
 import MapScreen from '../screens/properties/MapScreen';
 
@@ -56,7 +60,7 @@ const Tab = createBottomTabNavigator();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
@@ -68,8 +72,8 @@ const AuthNavigator = () => {
 const MainTabs = () => {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
           if (route.name === 'Home') {
@@ -93,7 +97,8 @@ const MainTabs = () => {
           borderTopColor: COLORS.border,
         },
         headerShown: false,
-      })}>
+      })}
+    >
       <Tab.Screen name="Home" component={EnhancedHomeScreen} />
       <Tab.Screen name="Search" component={AdvancedSearchScreen} />
       <Tab.Screen name="Trips" component={MyBookingsScreen} />
@@ -121,96 +126,114 @@ const MainNavigator = () => {
       <Stack.Screen
         name="MainTabs"
         component={MainTabs}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
-      
+
       {/* Property Related Screens */}
       <Stack.Screen
         name="PropertyDetail"
         component={PropertyDetailScreen}
-        options={{title: 'Property Details', headerShown: false}}
+        options={{ title: 'Property Details', headerShown: false }}
       />
       <Stack.Screen
         name="Favorites"
         component={FavoritesScreen}
-        options={{title: 'Saved Properties'}}
+        options={{ title: 'Saved Properties' }}
       />
       <Stack.Screen
         name="Wishlists"
         component={WishlistsScreen}
-        options={{title: 'Wishlists', headerShown: false}}
+        options={{ title: 'Wishlists', headerShown: false }}
       />
-      
+
       {/* Booking Related Screens */}
       <Stack.Screen
         name="Booking"
         component={BookingScreen}
-        options={{title: 'Book Property', headerShown: false}}
+        options={{ title: 'Book Property', headerShown: false }}
       />
       <Stack.Screen
         name="BookingConfirmation"
         component={BookingConfirmationScreen}
-        options={{title: 'Booking Confirmed', headerLeft: null, headerShown: false}}
+        options={{
+          title: 'Booking Confirmed',
+          headerLeft: null,
+          headerShown: false,
+        }}
       />
-      
+
       {/* Map Screen */}
       <Stack.Screen
         name="PropertyMap"
         component={MapScreen}
-        options={{title: 'Map View', headerShown: false}}
+        options={{ title: 'Map View', headerShown: false }}
       />
-      
+
       {/* Profile & Settings */}
       <Stack.Screen
         name="AccountSettings"
         component={AccountSettingsScreen}
-        options={{title: 'Account Settings', headerShown: false}}
+        options={{ title: 'Account Settings', headerShown: false }}
       />
-      
+
       {/* Host Flow */}
       <Stack.Screen
         name="BecomeHost"
         component={BecomeHostScreen}
-        options={{title: 'Become a Host', headerShown: false}}
+        options={{ title: 'Become a Host', headerShown: false }}
       />
       <Stack.Screen
         name="HostDashboard"
         component={HostDashboardScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AddProperty"
         component={AddPropertyScreen}
-        options={{title: 'Add Property'}}
+        options={{ title: 'Add Property' }}
       />
       <Stack.Screen
         name="MyProperties"
         component={MyPropertiesScreen}
-        options={{title: 'My Properties'}}
+        options={{ title: 'My Properties' }}
       />
       <Stack.Screen
         name="HostBookings"
         component={BookingsScreen}
-        options={{title: 'Manage Bookings'}}
+        options={{ title: 'Manage Bookings' }}
       />
       <Stack.Screen
         name="HostEarnings"
         component={HostEarningsScreen}
-        options={{title: 'Earnings', headerShown: false}}
+        options={{ title: 'Earnings', headerShown: false }}
       />
-      
+
       {/* Support & Help */}
       <Stack.Screen
         name="Help"
         component={HelpScreen}
-        options={{title: 'Help Center', headerShown: false}}
+        options={{ title: 'Help Center', headerShown: false }}
+      />
+
+      {/* KYC & Verification */}
+      <Stack.Screen
+        name="KYCVerify"
+        component={KYCVerificationScreen}
+        options={{ title: 'Identity Verification', headerShown: false }}
+      />
+
+      {/* Payment Methods */}
+      <Stack.Screen
+        name="PaymentMethods"
+        component={PaymentMethodsScreen}
+        options={{ title: 'Payment Methods', headerShown: false }}
       />
     </Stack.Navigator>
   );
 };
 
 const AppNavigator = () => {
-  const {isAuthenticated, loading} = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
     return null;

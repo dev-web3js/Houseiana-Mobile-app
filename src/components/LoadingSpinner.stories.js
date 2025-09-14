@@ -1,21 +1,21 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import LoadingSpinner from './LoadingSpinner';
-import {COLORS} from '../shared/constants';
+import { COLORS } from '../shared/constants';
 
 const meta = {
   title: 'Components/LoadingSpinner',
   component: LoadingSpinner,
   decorators: [
     (Story) => (
-      <View style={{flex: 1, height: 200, backgroundColor: '#f5f5f5'}}>
+      <View style={{ flex: 1, height: 200, backgroundColor: '#f5f5f5' }}>
         <Story />
       </View>
     ),
   ],
   argTypes: {
     size: {
-      control: {type: 'select'},
+      control: { type: 'select' },
       options: ['small', 'large'],
       description: 'Size of the activity indicator',
       defaultValue: 'large',

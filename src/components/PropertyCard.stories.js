@@ -1,6 +1,6 @@
 import React from 'react';
-import {View} from 'react-native';
-import {action} from '@storybook/addon-actions';
+import { View } from 'react-native';
+import { action } from '@storybook/addon-actions';
 import PropertyCard from './PropertyCard';
 
 // Mock property data for stories
@@ -11,7 +11,7 @@ const mockProperty = {
   price: 850,
   area: 'The Pearl',
   city: 'Doha',
-  latitude: 25.3700,
+  latitude: 25.37,
   longitude: 51.5373,
   bedrooms: 4,
   bathrooms: 3,
@@ -29,7 +29,7 @@ const meta = {
   component: PropertyCard,
   decorators: [
     (Story) => (
-      <View style={{padding: 16, backgroundColor: '#f5f5f5'}}>
+      <View style={{ padding: 16, backgroundColor: '#f5f5f5' }}>
         <Story />
       </View>
     ),
@@ -95,7 +95,8 @@ export const LongTitle = {
   args: {
     property: {
       ...mockProperty,
-      title: 'Extremely Luxurious and Spacious Villa with Amazing Sea Views and Premium Amenities in The Pearl Qatar',
+      title:
+        'Extremely Luxurious and Spacious Villa with Amazing Sea Views and Premium Amenities in The Pearl Qatar',
     },
     isFavorite: false,
   },
@@ -140,7 +141,9 @@ export const MinimalData = {
       price: 200,
       area: 'Al Rayyan',
       city: 'Doha',
-      images: ['https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'],
+      images: [
+        'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      ],
     },
     isFavorite: false,
   },

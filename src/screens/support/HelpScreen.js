@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,9 +9,9 @@ import {
   Alert,
   Linking,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
 
-const HelpScreen = ({navigation}) => {
+const HelpScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategory, setExpandedCategory] = useState(null);
 
@@ -165,23 +165,26 @@ const HelpScreen = ({navigation}) => {
       title: 'Emergency',
       description: '24/7 emergency hotline',
       icon: '🚨',
-      action: () => Alert.alert(
-        'Emergency Hotline',
-        'For urgent safety issues, call:\n+974 999 (Police)\n+974 998 (Fire/Medical)',
-        [
-          {text: 'Cancel', style: 'cancel'},
-          {text: 'Call Police', onPress: () => Linking.openURL('tel:999')},
-        ]
-      ),
+      action: () =>
+        Alert.alert(
+          'Emergency Hotline',
+          'For urgent safety issues, call:\n+974 999 (Police)\n+974 998 (Fire/Medical)',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Call Police', onPress: () => Linking.openURL('tel:999') },
+          ]
+        ),
     },
   ];
 
-  const filteredCategories = helpCategories.filter(category =>
-    category.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    category.articles.some(article =>
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.description.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  const filteredCategories = helpCategories.filter(
+    (category) =>
+      category.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      category.articles.some(
+        (article) =>
+          article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          article.description.toLowerCase().includes(searchQuery.toLowerCase())
+      )
   );
 
   const handleCategoryPress = (categoryId) => {
@@ -214,9 +217,10 @@ const HelpScreen = ({navigation}) => {
 
   const renderCategory = (category) => {
     const isExpanded = expandedCategory === category.id;
-    const filteredArticles = category.articles.filter(article =>
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.description.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredArticles = category.articles.filter(
+      (article) =>
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     if (searchQuery && filteredArticles.length === 0) {
@@ -233,29 +237,32 @@ const HelpScreen = ({navigation}) => {
             <Text style={styles.categoryIcon}>{category.icon}</Text>
             <Text style={styles.categoryTitle}>{category.title}</Text>
           </View>
-          <Text style={[
-            styles.expandIcon,
-            isExpanded && styles.expandIconRotated
-          ]}>
+          <Text
+            style={[styles.expandIcon, isExpanded && styles.expandIconRotated]}
+          >
             ↓
           </Text>
         </TouchableOpacity>
 
         {isExpanded && (
           <View style={styles.articlesContainer}>
-            {(searchQuery ? filteredArticles : category.articles).map((article) => (
-              <TouchableOpacity
-                key={article.id}
-                style={styles.articleItem}
-                onPress={() => handleArticlePress(article)}
-              >
-                <View style={styles.articleContent}>
-                  <Text style={styles.articleTitle}>{article.title}</Text>
-                  <Text style={styles.articleDescription}>{article.description}</Text>
-                </View>
-                <Text style={styles.articleArrow}>→</Text>
-              </TouchableOpacity>
-            ))}
+            {(searchQuery ? filteredArticles : category.articles).map(
+              (article) => (
+                <TouchableOpacity
+                  key={article.id}
+                  style={styles.articleItem}
+                  onPress={() => handleArticlePress(article)}
+                >
+                  <View style={styles.articleContent}>
+                    <Text style={styles.articleTitle}>{article.title}</Text>
+                    <Text style={styles.articleDescription}>
+                      {article.description}
+                    </Text>
+                  </View>
+                  <Text style={styles.articleArrow}>→</Text>
+                </TouchableOpacity>
+              )
+            )}
           </View>
         )}
       </View>
@@ -309,23 +316,33 @@ const HelpScreen = ({navigation}) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Popular Articles</Text>
           <View style={styles.popularArticles}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.popularArticleItem}
-              onPress={() => handleArticlePress({id: 1, title: 'How to book a property'})}
+              onPress={() =>
+                handleArticlePress({ id: 1, title: 'How to book a property' })
+              }
             >
-              <Text style={styles.popularArticleTitle}>How to book a property</Text>
+              <Text style={styles.popularArticleTitle}>
+                How to book a property
+              </Text>
               <Text style={styles.popularArticleViews}>2.1k views</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.popularArticleItem}
-              onPress={() => handleArticlePress({id: 2, title: 'Cancellation policy'})}
+              onPress={() =>
+                handleArticlePress({ id: 2, title: 'Cancellation policy' })
+              }
             >
-              <Text style={styles.popularArticleTitle}>Cancellation policy</Text>
+              <Text style={styles.popularArticleTitle}>
+                Cancellation policy
+              </Text>
               <Text style={styles.popularArticleViews}>1.8k views</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.popularArticleItem}
-              onPress={() => handleArticlePress({id: 5, title: 'Become a host'})}
+              onPress={() =>
+                handleArticlePress({ id: 5, title: 'Become a host' })
+              }
             >
               <Text style={styles.popularArticleTitle}>Become a host</Text>
               <Text style={styles.popularArticleViews}>1.5k views</Text>
@@ -336,7 +353,7 @@ const HelpScreen = ({navigation}) => {
         {/* Community */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Community</Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.communityItem}
             onPress={() => Linking.openURL('https://community.houseiana.qa')}
           >
@@ -489,10 +506,10 @@ const styles = StyleSheet.create({
   expandIcon: {
     ...TYPOGRAPHY.body,
     color: COLORS.textSecondary,
-    transform: [{rotate: '0deg'}],
+    transform: [{ rotate: '0deg' }],
   },
   expandIconRotated: {
-    transform: [{rotate: '180deg'}],
+    transform: [{ rotate: '180deg' }],
   },
   articlesContainer: {
     borderTopWidth: 1,

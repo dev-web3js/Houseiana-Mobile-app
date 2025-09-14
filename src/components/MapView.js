@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -6,14 +6,19 @@ import {
   TouchableOpacity,
   Text,
   Alert,
-} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE, Callout, Circle} from 'react-native-maps';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import locationService from '../services/locationService';
-import {COLORS, SPACING, FONT_SIZES} from '../shared/constants';
-import {formatPrice} from '../shared/utils';
+} from "react-native";
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  Callout,
+  Circle,
+} from "react-native-maps";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import locationService from "../services/locationService";
+import { COLORS, SPACING, FONT_SIZES } from "../shared/constants";
+import { formatPrice } from "../shared/utils";
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const PropertyMapView = ({
   properties = [],
@@ -34,7 +39,7 @@ const PropertyMapView = ({
   // Default region for Qatar
   const defaultRegion = {
     latitude: 25.2854, // Doha
-    longitude: 51.5310,
+    longitude: 51.531,
     latitudeDelta: 0.2,
     longitudeDelta: 0.2,
   };
@@ -44,9 +49,11 @@ const PropertyMapView = ({
       setRegion(initialRegion);
     } else if (properties.length > 0) {
       // Calculate region to fit all properties
-      const propertyCoords = properties.filter(p => p.latitude && p.longitude);
+      const propertyCoords = properties.filter(
+        (p) => p.latitude && p.longitude
+      );
       if (propertyCoords.length > 0) {
-        const coordinates = propertyCoords.map(p => ({
+        const coordinates = propertyCoords.map((p) => ({
           latitude: p.latitude,
           longitude: p.longitude,
         }));
@@ -61,14 +68,22 @@ const PropertyMapView = ({
   }, [properties, initialRegion]);
 
   useEffect(() => {
-    if (selectedProperty && selectedProperty.latitude && selectedProperty.longitude && mapReady) {
+    if (
+      selectedProperty &&
+      selectedProperty.latitude &&
+      selectedProperty.longitude &&
+      mapReady
+    ) {
       // Animate to selected property
-      mapRef.current?.animateToRegion({
-        latitude: selectedProperty.latitude,
-        longitude: selectedProperty.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }, 1000);
+      mapRef.current?.animateToRegion(
+        {
+          latitude: selectedProperty.latitude,
+          longitude: selectedProperty.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        1000
+      );
     }
   }, [selectedProperty, mapReady]);
 
@@ -76,7 +91,7 @@ const PropertyMapView = ({
     try {
       const location = await locationService.getCurrentLocation();
       setUserLocation(location);
-      
+
       if (!region) {
         setRegion({
           latitude: location.latitude,
@@ -86,7 +101,7 @@ const PropertyMapView = ({
         });
       }
     } catch (error) {
-      console.log('Could not get user location:', error);
+      console.log("Could not get user location:", error);
       setRegion(defaultRegion);
     }
   };
@@ -102,19 +117,19 @@ const PropertyMapView = ({
       });
     } else if (coordinates.length > 1) {
       // Multiple properties - calculate bounding box
-      const lats = coordinates.map(c => c.latitude);
-      const lngs = coordinates.map(c => c.longitude);
-      
+      const lats = coordinates.map((c) => c.latitude);
+      const lngs = coordinates.map((c) => c.longitude);
+
       const minLat = Math.min(...lats);
       const maxLat = Math.max(...lats);
       const minLng = Math.min(...lngs);
       const maxLng = Math.max(...lngs);
-      
+
       const centerLat = (minLat + maxLat) / 2;
       const centerLng = (minLng + maxLng) / 2;
       const deltaLat = (maxLat - minLat) * 1.2; // Add 20% padding
       const deltaLng = (maxLng - minLng) * 1.2;
-      
+
       setRegion({
         latitude: centerLat,
         longitude: centerLng,
@@ -128,19 +143,21 @@ const PropertyMapView = ({
     try {
       const location = await locationService.getCurrentLocation();
       setUserLocation(location);
-      
-      mapRef.current?.animateToRegion({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }, 1000);
-      
+
+      mapRef.current?.animateToRegion(
+        {
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        1000
+
       if (onLocationPress) {
         onLocationPress(location);
       }
     } catch (error) {
-      Alert.alert('Location Error', 'Could not get your current location');
+      Alert.alert("Location Error", "Could not get your current location");
     }
   };
 
@@ -161,10 +178,10 @@ const PropertyMapView = ({
   };
 
   const renderPropertyMarker = (property, index) => {
-    if (!property.latitude || !property.longitude) return null;
-    
+    if (!property.latitude || !property.longitude) {return null;}
+
     const isSelected = selectedProperty && selectedProperty.id === property.id;
-    
+
     return (
       <Marker
         key={property.id || index}
@@ -176,19 +193,20 @@ const PropertyMapView = ({
         pinColor={isSelected ? COLORS.secondary : COLORS.primary}
       >
         {showPrices && (
-          <View style={[
-            styles.priceMarker,
-            isSelected && styles.priceMarkerSelected
-          ]}>
-            <Text style={[
-              styles.priceText,
-              isSelected && styles.priceTextSelected
-            ]}>
+          <View
+            style={[
+              styles.priceMarker,
+              isSelected && styles.priceMarkerSelected,
+            ]}
+          >
+            <Text
+              style={[styles.priceText, isSelected && styles.priceTextSelected]}
+            >
               {formatPrice(property.price)}
             </Text>
           </View>
         )}
-        
+
         <Callout onPress={() => handlePropertyPress(property)}>
           <View style={styles.callout}>
             <Text style={styles.calloutTitle} numberOfLines={2}>
@@ -203,7 +221,8 @@ const PropertyMapView = ({
             <View style={styles.calloutActions}>
               <TouchableOpacity
                 style={styles.calloutButton}
-                onPress={() => getDirections(property)}>
+                onPress={() => getDirections(property)}
+              >
                 <Icon name="directions" size={16} color={COLORS.primary} />
                 <Text style={styles.calloutButtonText}>Directions</Text>
               </TouchableOpacity>
@@ -215,8 +234,8 @@ const PropertyMapView = ({
   };
 
   const renderUserLocationMarker = () => {
-    if (!showUserLocation || !userLocation) return null;
-    
+    if (!showUserLocation || !userLocation) {return null;}
+
     return (
       <Marker
         coordinate={{
@@ -234,8 +253,8 @@ const PropertyMapView = ({
   };
 
   const renderSearchRadius = () => {
-    if (!searchRadius || !userLocation) return null;
-    
+    if (!searchRadius || !userLocation) {return null;}
+
     return (
       <Circle
         center={{
@@ -285,7 +304,8 @@ const PropertyMapView = ({
         {showUserLocation && (
           <TouchableOpacity
             style={styles.myLocationButton}
-            onPress={handleMyLocationPress}>
+            onPress={handleMyLocationPress}
+          >
             <Icon name="my-location" size={24} color={COLORS.primary} />
           </TouchableOpacity>
         )}
@@ -295,7 +315,7 @@ const PropertyMapView = ({
       {properties.length > 0 && (
         <View style={styles.propertyCount}>
           <Text style={styles.propertyCountText}>
-            {properties.length} propert{properties.length === 1 ? 'y' : 'ies'}
+            {properties.length} propert{properties.length === 1 ? "y" : "ies"}
           </Text>
         </View>
       )}
@@ -309,8 +329,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
   },
   loadingContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
     fontSize: FONT_SIZES.md,
@@ -320,7 +340,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   controls: {
-    position: 'absolute',
+    position: "absolute",
     right: SPACING.md,
     bottom: SPACING.lg,
     gap: SPACING.sm,
@@ -330,16 +350,16 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: 50,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
   },
   propertyCount: {
-    position: 'absolute',
+    position: "absolute",
     top: SPACING.md,
     left: SPACING.md,
     backgroundColor: COLORS.background,
@@ -347,14 +367,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
   },
   propertyCountText: {
     fontSize: FONT_SIZES.sm,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
   },
   priceMarker: {
@@ -370,7 +390,7 @@ const styles = StyleSheet.create({
   priceText: {
     color: COLORS.background,
     fontSize: FONT_SIZES.xs,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   priceTextSelected: {
     color: COLORS.text,
@@ -379,9 +399,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: 'rgba(33, 150, 243, 0.3)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(33, 150, 243, 0.3)",
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 2,
     borderColor: COLORS.primary,
   },
@@ -397,7 +417,7 @@ const styles = StyleSheet.create({
   },
   calloutTitle: {
     fontSize: FONT_SIZES.sm,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
     marginBottom: SPACING.xs,
   },
@@ -408,24 +428,24 @@ const styles = StyleSheet.create({
   },
   calloutPrice: {
     fontSize: FONT_SIZES.sm,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.primary,
     marginBottom: SPACING.sm,
   },
   calloutActions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   calloutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: SPACING.xs,
     paddingVertical: SPACING.xs,
   },
   calloutButtonText: {
     fontSize: FONT_SIZES.xs,
     color: COLORS.primary,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });
 

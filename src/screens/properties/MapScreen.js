@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import PropertyMapView from '../../components/MapView';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS} from '../../shared/constants';
+import { COLORS } from '../../shared/constants';
 
-const MapScreen = ({route, navigation}) => {
+const MapScreen = ({ route, navigation }) => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProperty, setSelectedProperty] = useState(null);
-  
+
   // Get initial data from route params
   const initialProperties = route.params?.properties || [];
   const initialSelectedProperty = route.params?.selectedProperty || null;
@@ -29,11 +29,11 @@ const MapScreen = ({route, navigation}) => {
     try {
       setLoading(true);
       const response = await propertiesService.getProperties(searchFilters);
-      
+
       if (response.success) {
         // Filter properties that have location data
         const propertiesWithLocation = response.data.filter(
-          property => property.latitude && property.longitude
+          (property) => property.latitude && property.longitude
         );
         setProperties(propertiesWithLocation);
       } else {
@@ -49,7 +49,7 @@ const MapScreen = ({route, navigation}) => {
 
   const handlePropertyPress = (property) => {
     setSelectedProperty(property);
-    
+
     // Navigate to property details after a short delay to show selection
     setTimeout(() => {
       navigation.navigate('PropertyDetail', {

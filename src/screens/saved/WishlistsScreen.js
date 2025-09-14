@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,10 +11,10 @@ import {
   Modal,
   TextInput,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
-import {apiService} from '../../services/api';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
+import { apiService } from '../../services/api';
 
-const WishlistsScreen = ({navigation}) => {
+const WishlistsScreen = ({ navigation }) => {
   const [wishlists, setWishlists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -56,11 +56,11 @@ const WishlistsScreen = ({navigation}) => {
         name: newWishlistName.trim(),
         description: '',
       });
-      
-      setWishlists(prev => [response.data, ...prev]);
+
+      setWishlists((prev) => [response.data, ...prev]);
       setShowCreateModal(false);
       setNewWishlistName('');
-      
+
       Alert.alert('Success', 'Wishlist created successfully!');
     } catch (error) {
       Alert.alert('Error', 'Failed to create wishlist');
@@ -74,14 +74,14 @@ const WishlistsScreen = ({navigation}) => {
       'Delete Wishlist',
       `Are you sure you want to delete "${wishlistName}"? This action cannot be undone.`,
       [
-        {text: 'Cancel', style: 'cancel'},
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Delete',
           style: 'destructive',
           onPress: async () => {
             try {
               await apiService.deleteWishlist(wishlistId);
-              setWishlists(prev => prev.filter(w => w.id !== wishlistId));
+              setWishlists((prev) => prev.filter((w) => w.id !== wishlistId));
             } catch (error) {
               Alert.alert('Error', 'Failed to delete wishlist');
             }
@@ -98,18 +98,20 @@ const WishlistsScreen = ({navigation}) => {
     return null;
   };
 
-  const renderWishlistItem = ({item}) => (
+  const renderWishlistItem = ({ item }) => (
     <TouchableOpacity
       style={styles.wishlistItem}
-      onPress={() => navigation.navigate('WishlistDetail', {
-        wishlistId: item.id,
-        wishlistName: item.name,
-      })}
+      onPress={() =>
+        navigation.navigate('WishlistDetail', {
+          wishlistId: item.id,
+          wishlistName: item.name,
+        })
+      }
     >
       <View style={styles.wishlistImageContainer}>
         {getWishlistImage(item) ? (
-          <Image 
-            source={{uri: getWishlistImage(item)}} 
+          <Image
+            source={{ uri: getWishlistImage(item) }}
             style={styles.wishlistImage}
           />
         ) : (
@@ -119,7 +121,8 @@ const WishlistsScreen = ({navigation}) => {
         )}
         <View style={styles.wishlistOverlay}>
           <Text style={styles.propertyCount}>
-            {item.propertyCount || 0} {item.propertyCount === 1 ? 'property' : 'properties'}
+            {item.propertyCount || 0}{' '}
+            {item.propertyCount === 1 ? 'property' : 'properties'}
           </Text>
         </View>
       </View>
@@ -150,13 +153,16 @@ const WishlistsScreen = ({navigation}) => {
       <Text style={styles.emptyStateIcon}>💖</Text>
       <Text style={styles.emptyStateTitle}>Create your first wishlist</Text>
       <Text style={styles.emptyStateText}>
-        Organize your favorite properties into collections. Create a wishlist for your next trip, dream destinations, or special occasions.
+        Organize your favorite properties into collections. Create a wishlist
+        for your next trip, dream destinations, or special occasions.
       </Text>
       <TouchableOpacity
         style={styles.createFirstWishlistButton}
         onPress={() => setShowCreateModal(true)}
       >
-        <Text style={styles.createFirstWishlistButtonText}>Create Wishlist</Text>
+        <Text style={styles.createFirstWishlistButtonText}>
+          Create Wishlist
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -183,15 +189,17 @@ const WishlistsScreen = ({navigation}) => {
           <TouchableOpacity
             style={[
               styles.modalCreateButton,
-              !newWishlistName.trim() && styles.modalCreateButtonDisabled
+              !newWishlistName.trim() && styles.modalCreateButtonDisabled,
             ]}
             onPress={handleCreateWishlist}
             disabled={!newWishlistName.trim() || isCreating}
           >
-            <Text style={[
-              styles.modalCreateText,
-              !newWishlistName.trim() && styles.modalCreateTextDisabled
-            ]}>
+            <Text
+              style={[
+                styles.modalCreateText,
+                !newWishlistName.trim() && styles.modalCreateTextDisabled,
+              ]}
+            >
               {isCreating ? 'Creating...' : 'Create'}
             </Text>
           </TouchableOpacity>
@@ -208,12 +216,11 @@ const WishlistsScreen = ({navigation}) => {
             autoFocus={true}
             placeholderTextColor={COLORS.textSecondary}
           />
-          <Text style={styles.characterCount}>
-            {newWishlistName.length}/50
-          </Text>
+          <Text style={styles.characterCount}>{newWishlistName.length}/50</Text>
 
           <Text style={styles.tipText}>
-            💡 Tip: Create specific wishlists like "Weekend Getaways" or "Family Trips" to organize your favorites better.
+            💡 Tip: Create specific wishlists like "Weekend Getaways" or "Family
+            Trips" to organize your favorites better.
           </Text>
         </View>
       </View>
@@ -238,7 +245,7 @@ const WishlistsScreen = ({navigation}) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={[
           styles.listContainer,
-          wishlists.length === 0 && styles.emptyListContainer
+          wishlists.length === 0 && styles.emptyListContainer,
         ]}
         refreshControl={
           <RefreshControl
@@ -267,8 +274,9 @@ const mockWishlists = [
     properties: [
       {
         id: 'prop1',
-        image: 'https://images.unsplash.com/photo-1715168437311-18b9ec0830c1?w=400&h=300&fit=crop',
-      }
+        image:
+          'https://images.unsplash.com/photo-1715168437311-18b9ec0830c1?w=400&h=300&fit=crop',
+      },
     ],
   },
   {
@@ -280,8 +288,9 @@ const mockWishlists = [
     properties: [
       {
         id: 'prop2',
-        image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop',
-      }
+        image:
+          'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop',
+      },
     ],
   },
   {
@@ -293,8 +302,9 @@ const mockWishlists = [
     properties: [
       {
         id: 'prop3',
-        image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop',
-      }
+        image:
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop',
+      },
     ],
   },
 ];
@@ -343,7 +353,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,

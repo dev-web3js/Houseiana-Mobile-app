@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,10 @@ import {
   TextInput,
 } from 'react-native';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
-import {formatPrice} from '../../shared/utils';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
+import { formatPrice } from '../../shared/utils';
 
-const PropertiesScreen = ({navigation}) => {
+const PropertiesScreen = ({ navigation }) => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,19 +36,22 @@ const PropertiesScreen = ({navigation}) => {
     }
   };
 
-  const renderProperty = ({item}) => (
+  const renderProperty = ({ item }) => (
     <TouchableOpacity
       style={styles.propertyCard}
       onPress={() =>
-        navigation.navigate('PropertyDetail', {propertyId: item.id})
-      }>
+        navigation.navigate('PropertyDetail', { propertyId: item.id })
+      }
+    >
       <Text style={styles.propertyTitle}>{item.title}</Text>
       <Text style={styles.propertyLocation}>{item.location}</Text>
       <Text style={styles.propertyDescription} numberOfLines={2}>
         {item.description}
       </Text>
       <View style={styles.propertyFooter}>
-        <Text style={styles.propertyPrice}>{formatPrice(item.price)}/month</Text>
+        <Text style={styles.propertyPrice}>
+          {formatPrice(item.price)}/month
+        </Text>
         <Text style={styles.propertyType}>{item.type}</Text>
       </View>
     </TouchableOpacity>
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },

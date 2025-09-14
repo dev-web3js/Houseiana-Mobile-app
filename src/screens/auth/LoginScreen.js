@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,15 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import {useAuth} from '../../auth/AuthContext';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
-import {validateEmail} from '../../shared/utils';
+import { useAuth } from '../../auth/AuthContext';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
+import { validateEmail } from '../../shared/utils';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   const handleLogin = async () => {
     if (!validateEmail(email)) {
@@ -30,7 +30,7 @@ const LoginScreen = ({navigation}) => {
 
     setLoading(true);
     try {
-      await login({email, password});
+      await login({ email, password });
     } catch (error) {
       Alert.alert('Login Failed', error.message);
     } finally {
@@ -63,7 +63,8 @@ const LoginScreen = ({navigation}) => {
         <TouchableOpacity
           style={[styles.button, loading && styles.buttonDisabled]}
           onPress={handleLogin}
-          disabled={loading}>
+          disabled={loading}
+        >
           <Text style={styles.buttonText}>
             {loading ? 'Signing In...' : 'Sign In'}
           </Text>
@@ -71,10 +72,9 @@ const LoginScreen = ({navigation}) => {
 
         <TouchableOpacity
           style={styles.linkButton}
-          onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.linkText}>
-            Don't have an account? Sign Up
-          </Text>
+          onPress={() => navigation.navigate('Register')}
+        >
+          <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>

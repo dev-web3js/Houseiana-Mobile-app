@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,10 @@ import {
   Alert,
   Share,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
-import {apiService} from '../../services/api';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
+import { apiService } from '../../services/api';
 
-const AccountSettingsScreen = ({navigation}) => {
+const AccountSettingsScreen = ({ navigation }) => {
   const [settings, setSettings] = useState({
     notifications: {
       push: true,
@@ -61,9 +61,9 @@ const AccountSettingsScreen = ({navigation}) => {
         [key]: value,
       },
     };
-    
+
     setSettings(newSettings);
-    
+
     try {
       await apiService.updateUserSettings(newSettings);
     } catch (error) {
@@ -78,7 +78,7 @@ const AccountSettingsScreen = ({navigation}) => {
       'Delete Account',
       'Are you sure you want to delete your account? This action cannot be undone and you will lose all your data.',
       [
-        {text: 'Cancel', style: 'cancel'},
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Delete',
           style: 'destructive',
@@ -87,7 +87,7 @@ const AccountSettingsScreen = ({navigation}) => {
               'Final Confirmation',
               'Type "DELETE" to confirm account deletion.',
               [
-                {text: 'Cancel', style: 'cancel'},
+                { text: 'Cancel', style: 'cancel' },
                 {
                   text: 'Confirm Delete',
                   style: 'destructive',
@@ -96,7 +96,7 @@ const AccountSettingsScreen = ({navigation}) => {
                       await apiService.deleteUserAccount();
                       navigation.reset({
                         index: 0,
-                        routes: [{name: 'Login'}],
+                        routes: [{ name: 'Login' }],
                       });
                     } catch (error) {
                       Alert.alert('Error', 'Failed to delete account');
@@ -114,7 +114,8 @@ const AccountSettingsScreen = ({navigation}) => {
   const handleShareApp = async () => {
     try {
       await Share.share({
-        message: 'Check out Houseiana - Qatar\'s premier property rental platform! Download the app and discover amazing places to stay.',
+        message:
+          "Check out Houseiana - Qatar's premier property rental platform! Download the app and discover amazing places to stay.",
         url: 'https://houseiana.qa/app',
       });
     } catch (error) {
@@ -133,17 +134,22 @@ const AccountSettingsScreen = ({navigation}) => {
       <Switch
         value={settings[category][key]}
         onValueChange={(value) => updateSetting(category, key, value)}
-        trackColor={{false: COLORS.border, true: COLORS.primary}}
+        trackColor={{ false: COLORS.border, true: COLORS.primary }}
         thumbColor={settings[category][key] ? '#FFFFFF' : COLORS.textSecondary}
         ios_backgroundColor={COLORS.border}
       />
     </View>
   );
 
-  const renderActionSetting = (title, description, onPress, textColor = COLORS.text) => (
+  const renderActionSetting = (
+    title,
+    description,
+    onPress,
+    textColor = COLORS.text
+  ) => (
     <TouchableOpacity style={styles.settingItem} onPress={onPress}>
       <View style={styles.settingContent}>
-        <Text style={[styles.settingTitle, {color: textColor}]}>{title}</Text>
+        <Text style={[styles.settingTitle, { color: textColor }]}>{title}</Text>
         {description && (
           <Text style={styles.settingDescription}>{description}</Text>
         )}
@@ -155,9 +161,7 @@ const AccountSettingsScreen = ({navigation}) => {
   const renderSection = (title, children) => (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>{title}</Text>
-      <View style={styles.sectionContent}>
-        {children}
-      </View>
+      <View style={styles.sectionContent}>{children}</View>
     </View>
   );
 
@@ -193,7 +197,8 @@ const AccountSettingsScreen = ({navigation}) => {
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>
-                {new Date().getFullYear() - userStats.accountCreated.getFullYear()}
+                {new Date().getFullYear() -
+                  userStats.accountCreated.getFullYear()}
               </Text>
               <Text style={styles.statLabel}>Years</Text>
             </View>
@@ -305,25 +310,24 @@ const AccountSettingsScreen = ({navigation}) => {
         ])}
 
         {/* Host Settings (if applicable) */}
-        {userStats.hostSince && renderSection('Host Tools', [
-          renderActionSetting(
-            'Professional Hosting Tools',
-            'Advanced host features',
-            () => navigation.navigate('HostTools')
-          ),
-          renderActionSetting(
-            'Host Preferences',
-            'Booking requirements, house rules',
-            () => navigation.navigate('HostPreferences')
-          ),
-        ])}
+        {userStats.hostSince &&
+          renderSection('Host Tools', [
+            renderActionSetting(
+              'Professional Hosting Tools',
+              'Advanced host features',
+              () => navigation.navigate('HostTools')
+            ),
+            renderActionSetting(
+              'Host Preferences',
+              'Booking requirements, house rules',
+              () => navigation.navigate('HostPreferences')
+            ),
+          ])}
 
         {/* Support & Legal */}
         {renderSection('Support & Legal', [
-          renderActionSetting(
-            'Help Center',
-            'Get help and support',
-            () => navigation.navigate('Help')
+          renderActionSetting('Help Center', 'Get help and support', () =>
+            navigation.navigate('Help')
           ),
           renderActionSetting(
             'Give us Feedback',
@@ -349,26 +353,19 @@ const AccountSettingsScreen = ({navigation}) => {
 
         {/* Danger Zone */}
         {renderSection('Account Actions', [
-          renderActionSetting(
-            'Sign Out',
-            'Sign out of your account',
-            () => {
-              Alert.alert(
-                'Sign Out',
-                'Are you sure you want to sign out?',
-                [
-                  {text: 'Cancel', style: 'cancel'},
-                  {
-                    text: 'Sign Out',
-                    onPress: () => navigation.reset({
-                      index: 0,
-                      routes: [{name: 'Login'}],
-                    }),
-                  },
-                ]
-              );
-            }
-          ),
+          renderActionSetting('Sign Out', 'Sign out of your account', () => {
+            Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Sign Out',
+                onPress: () =>
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                  }),
+              },
+            ]);
+          }),
           renderActionSetting(
             'Delete Account',
             'Permanently delete your account and data',

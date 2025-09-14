@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import {useAuth} from '../../auth/AuthContext';
-import {COLORS, SPACING, FONT_SIZES} from '../../shared/constants';
-import {validateEmail, validatePassword} from '../../shared/utils';
+import { useAuth } from '../../auth/AuthContext';
+import { COLORS, SPACING, FONT_SIZES } from '../../shared/constants';
+import { validateEmail, validatePassword } from '../../shared/utils';
 
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({ navigation }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,14 +20,14 @@ const RegisterScreen = ({navigation}) => {
     confirmPassword: '',
   });
   const [loading, setLoading] = useState(false);
-  const {register} = useAuth();
+  const { register } = useAuth();
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({...prev, [field]: value}));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleRegister = async () => {
-    const {name, email, password, confirmPassword} = formData;
+    const { name, email, password, confirmPassword } = formData;
 
     if (!name.trim()) {
       Alert.alert('Error', 'Please enter your name');
@@ -51,7 +51,7 @@ const RegisterScreen = ({navigation}) => {
 
     setLoading(true);
     try {
-      await register({name, email, password});
+      await register({ name, email, password });
     } catch (error) {
       Alert.alert('Registration Failed', error.message);
     } finally {
@@ -98,7 +98,8 @@ const RegisterScreen = ({navigation}) => {
         <TouchableOpacity
           style={[styles.button, loading && styles.buttonDisabled]}
           onPress={handleRegister}
-          disabled={loading}>
+          disabled={loading}
+        >
           <Text style={styles.buttonText}>
             {loading ? 'Creating Account...' : 'Create Account'}
           </Text>
@@ -106,10 +107,9 @@ const RegisterScreen = ({navigation}) => {
 
         <TouchableOpacity
           style={styles.linkButton}
-          onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.linkText}>
-            Already have an account? Sign In
-          </Text>
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={styles.linkText}>Already have an account? Sign In</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

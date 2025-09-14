@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {COLORS, SPACING, FONT_SIZES} from '../shared/constants';
+import { COLORS, SPACING, FONT_SIZES } from '../shared/constants';
 
 const Button = ({
   title,
@@ -25,7 +25,7 @@ const Button = ({
 }) => {
   const getButtonStyle = () => {
     const baseStyle = [styles.button];
-    
+
     // Size styles
     switch (size) {
       case 'small':
@@ -37,7 +37,7 @@ const Button = ({
       default:
         baseStyle.push(styles.mediumButton);
     }
-    
+
     // Variant styles
     switch (variant) {
       case 'secondary':
@@ -55,23 +55,23 @@ const Button = ({
       default:
         baseStyle.push(styles.primaryButton);
     }
-    
+
     // State styles
     if (disabled || loading) {
       baseStyle.push(styles.disabledButton);
     }
-    
+
     // Width style
     if (fullWidth) {
       baseStyle.push(styles.fullWidth);
     }
-    
+
     return [...baseStyle, style];
   };
 
   const getTextStyle = () => {
     const baseStyle = [styles.text];
-    
+
     // Size text styles
     switch (size) {
       case 'small':
@@ -83,7 +83,7 @@ const Button = ({
       default:
         baseStyle.push(styles.mediumText);
     }
-    
+
     // Variant text styles
     switch (variant) {
       case 'secondary':
@@ -101,18 +101,20 @@ const Button = ({
       default:
         baseStyle.push(styles.primaryText);
     }
-    
+
     // Disabled text style
     if (disabled || loading) {
       baseStyle.push(styles.disabledText);
     }
-    
+
     return [...baseStyle, textStyle];
   };
 
   const getIconColor = () => {
-    if (disabled || loading) return COLORS.textSecondary;
-    
+    if (disabled || loading) {
+      return COLORS.textSecondary;
+    }
+
     switch (variant) {
       case 'outline':
       case 'ghost':
@@ -130,9 +132,9 @@ const Button = ({
     if (loading) {
       return (
         <View style={styles.contentContainer}>
-          <ActivityIndicator 
-            size="small" 
-            color={getIconColor()} 
+          <ActivityIndicator
+            size="small"
+            color={getIconColor()}
             style={styles.loadingIndicator}
           />
           <Text style={getTextStyle()}>Loading...</Text>
@@ -143,21 +145,21 @@ const Button = ({
     return (
       <View style={styles.contentContainer}>
         {icon && iconPosition === 'left' && (
-          <Icon 
-            name={icon} 
-            size={size === 'small' ? 16 : size === 'large' ? 24 : 20} 
-            color={getIconColor()} 
+          <Icon
+            name={icon}
+            size={size === 'small' ? 16 : size === 'large' ? 24 : 20}
+            color={getIconColor()}
             style={styles.leftIcon}
           />
         )}
-        
+
         <Text style={getTextStyle()}>{title}</Text>
-        
+
         {icon && iconPosition === 'right' && (
-          <Icon 
-            name={icon} 
-            size={size === 'small' ? 16 : size === 'large' ? 24 : 20} 
-            color={getIconColor()} 
+          <Icon
+            name={icon}
+            size={size === 'small' ? 16 : size === 'large' ? 24 : 20}
+            color={getIconColor()}
             style={styles.rightIcon}
           />
         )}
@@ -171,7 +173,8 @@ const Button = ({
       onPress={onPress}
       disabled={disabled || loading}
       activeOpacity={0.8}
-      {...props}>
+      {...props}
+    >
       {renderContent()}
     </TouchableOpacity>
   );
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-  
+
   // Size styles
   smallButton: {
     paddingHorizontal: SPACING.sm,
@@ -201,7 +204,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.md,
     minHeight: 52,
   },
-  
+
   // Variant styles
   primaryButton: {
     backgroundColor: COLORS.primary,
@@ -220,18 +223,18 @@ const styles = StyleSheet.create({
   dangerButton: {
     backgroundColor: COLORS.error,
   },
-  
+
   // State styles
   disabledButton: {
     backgroundColor: COLORS.disabled,
     borderColor: COLORS.disabled,
   },
-  
+
   // Width style
   fullWidth: {
     width: '100%',
   },
-  
+
   // Text styles
   text: {
     fontWeight: '600',
@@ -246,7 +249,7 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: FONT_SIZES.lg,
   },
-  
+
   // Variant text styles
   primaryText: {
     color: COLORS.background,
@@ -266,14 +269,14 @@ const styles = StyleSheet.create({
   disabledText: {
     color: COLORS.textSecondary,
   },
-  
+
   // Content container
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   // Icon styles
   leftIcon: {
     marginRight: SPACING.xs,

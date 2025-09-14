@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,10 +10,10 @@ import {
   Alert,
   RefreshControl,
 } from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '../../shared/constants';
-import {apiService} from '../../services/api';
+import { COLORS, SPACING, TYPOGRAPHY } from '../../shared/constants';
+import { apiService } from '../../services/api';
 
-const MessagesScreen = ({navigation}) => {
+const MessagesScreen = ({ navigation }) => {
   const [conversations, setConversations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -58,30 +58,37 @@ const MessagesScreen = ({navigation}) => {
   const getInitials = (name) => {
     return name
       .split(' ')
-      .map(word => word[0])
+      .map((word) => word[0])
       .join('')
       .toUpperCase()
       .slice(0, 2);
   };
 
-  const filteredConversations = conversations.filter(conversation =>
-    conversation.otherUser.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    conversation.property?.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredConversations = conversations.filter(
+    (conversation) =>
+      conversation.otherUser.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      conversation.property?.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
   );
 
-  const renderConversationItem = ({item}) => (
+  const renderConversationItem = ({ item }) => (
     <TouchableOpacity
       style={styles.conversationItem}
-      onPress={() => navigation.navigate('ChatDetail', {
-        conversationId: item.id,
-        otherUser: item.otherUser,
-        property: item.property,
-      })}
+      onPress={() =>
+        navigation.navigate('ChatDetail', {
+          conversationId: item.id,
+          otherUser: item.otherUser,
+          property: item.property,
+        })
+      }
     >
       <View style={styles.avatarContainer}>
         {item.otherUser.profilePicture ? (
-          <Image 
-            source={{uri: item.otherUser.profilePicture}} 
+          <Image
+            source={{ uri: item.otherUser.profilePicture }}
             style={styles.avatar}
           />
         ) : (
@@ -111,11 +118,11 @@ const MessagesScreen = ({navigation}) => {
         )}
 
         <View style={styles.messagePreview}>
-          <Text 
+          <Text
             style={[
               styles.lastMessage,
-              item.unreadCount > 0 && styles.unreadMessage
-            ]} 
+              item.unreadCount > 0 && styles.unreadMessage,
+            ]}
             numberOfLines={2}
           >
             {item.lastMessage.senderId === 'currentUser' && 'You: '}
@@ -156,7 +163,9 @@ const MessagesScreen = ({navigation}) => {
         <Text style={styles.headerTitle}>Messages</Text>
         <TouchableOpacity
           style={styles.searchButton}
-          onPress={() => {/* TODO: Implement search functionality */}}
+          onPress={() => {
+            /* TODO: Implement search functionality */
+          }}
         >
           <Text style={styles.searchIcon}>🔍</Text>
         </TouchableOpacity>
@@ -178,7 +187,7 @@ const MessagesScreen = ({navigation}) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={[
           styles.listContainer,
-          filteredConversations.length === 0 && styles.emptyListContainer
+          filteredConversations.length === 0 && styles.emptyListContainer,
         ]}
         refreshControl={
           <RefreshControl
@@ -211,7 +220,8 @@ const mockConversations = [
     },
     lastMessage: {
       id: 'msg1',
-      content: 'Thank you for your interest! The villa is available for your dates.',
+      content:
+        'Thank you for your interest! The villa is available for your dates.',
       senderId: 'user1',
       createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
     },
@@ -222,7 +232,8 @@ const mockConversations = [
     otherUser: {
       id: 'user2',
       name: 'Sarah Johnson',
-      profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+      profilePicture:
+        'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
       isOnline: false,
       isHost: false,
     },

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,14 +10,19 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES, PROPERTY_TYPES} from '../../shared/constants';
+import {
+  COLORS,
+  SPACING,
+  FONT_SIZES,
+  PROPERTY_TYPES,
+} from '../../shared/constants';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const AddPropertyScreen = ({navigation}) => {
+const AddPropertyScreen = ({ navigation }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -35,20 +40,31 @@ const AddPropertyScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const amenitiesOptions = [
-    'WiFi', 'Kitchen', 'Parking', 'Pool', 'Gym', 'AC', 'Heating',
-    'TV', 'Washer', 'Balcony', 'Garden', 'Security', 'Elevator'
+    'WiFi',
+    'Kitchen',
+    'Parking',
+    'Pool',
+    'Gym',
+    'AC',
+    'Heating',
+    'TV',
+    'Washer',
+    'Balcony',
+    'Garden',
+    'Security',
+    'Elevator',
   ];
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({...prev, [field]: value}));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const toggleAmenity = (amenity) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       amenities: prev.amenities.includes(amenity)
-        ? prev.amenities.filter(a => a !== amenity)
-        : [...prev.amenities, amenity]
+        ? prev.amenities.filter((a) => a !== amenity)
+        : [...prev.amenities, amenity],
     }));
   };
 
@@ -66,31 +82,31 @@ const AddPropertyScreen = ({navigation}) => {
       }
 
       if (response.assets) {
-        const newPhotos = response.assets.map(asset => ({
+        const newPhotos = response.assets.map((asset) => ({
           uri: asset.uri,
           type: asset.type,
           name: asset.fileName || 'photo.jpg',
         }));
-        
-        setFormData(prev => ({
+
+        setFormData((prev) => ({
           ...prev,
-          photos: [...prev.photos, ...newPhotos]
+          photos: [...prev.photos, ...newPhotos],
         }));
       }
     });
   };
 
   const removePhoto = (index) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      photos: prev.photos.filter((_, i) => i !== index)
+      photos: prev.photos.filter((_, i) => i !== index),
     }));
   };
 
   const validateForm = () => {
     const required = ['title', 'description', 'price', 'city', 'location'];
-    const missing = required.filter(field => !formData[field]);
-    
+    const missing = required.filter((field) => !formData[field]);
+
     if (missing.length > 0) {
       Alert.alert('Error', `Please fill in: ${missing.join(', ')}`);
       return false;
@@ -105,7 +121,9 @@ const AddPropertyScreen = ({navigation}) => {
   };
 
   const handleSubmit = async () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
 
     setLoading(true);
     try {
@@ -113,23 +131,21 @@ const AddPropertyScreen = ({navigation}) => {
       const propertyData = {
         ...formData,
         price: parseFloat(formData.price),
-        monthlyPrice: formData.monthlyPrice ? parseFloat(formData.monthlyPrice) : null,
+        monthlyPrice: formData.monthlyPrice
+          ? parseFloat(formData.monthlyPrice)
+          : null,
         bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
         bathrooms: formData.bathrooms ? parseFloat(formData.bathrooms) : null,
         area: formData.area ? parseFloat(formData.area) : null,
         // In a real app, photos would be uploaded to cloud storage first
-        photos: formData.photos.map(photo => photo.uri),
+        photos: formData.photos.map((photo) => photo.uri),
       };
 
       await propertiesService.createProperty(propertyData);
-      
-      Alert.alert(
-        'Success',
-        'Property has been created successfully!',
-        [
-          {text: 'OK', onPress: () => navigation.goBack()}
-        ]
-      );
+
+      Alert.alert('Success', 'Property has been created successfully!', [
+        { text: 'OK', onPress: () => navigation.goBack() },
+      ]);
     } catch (error) {
       Alert.alert('Error', error.message || 'Failed to create property');
     } finally {
@@ -149,7 +165,8 @@ const AddPropertyScreen = ({navigation}) => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}>
+          onPress={() => navigation.goBack()}
+        >
           <Icon name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Add New Property</Text>
@@ -157,7 +174,8 @@ const AddPropertyScreen = ({navigation}) => {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {renderFormSection('Basic Information', (
+        {renderFormSection(
+          'Basic Information',
           <>
             <TextInput
               style={styles.input}
@@ -165,7 +183,7 @@ const AddPropertyScreen = ({navigation}) => {
               value={formData.title}
               onChangeText={(value) => handleInputChange('title', value)}
             />
-            
+
             <TextInput
               style={[styles.input, styles.textArea]}
               placeholder="Description"
@@ -179,18 +197,21 @@ const AddPropertyScreen = ({navigation}) => {
             <Text style={styles.inputLabel}>Property Type</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.typeContainer}>
-                {PROPERTY_TYPES.map(type => (
+                {PROPERTY_TYPES.map((type) => (
                   <TouchableOpacity
                     key={type.value}
                     style={[
                       styles.typeButton,
                       formData.type === type.value && styles.typeButtonActive,
                     ]}
-                    onPress={() => handleInputChange('type', type.value)}>
-                    <Text style={[
-                      styles.typeText,
-                      formData.type === type.value && styles.typeTextActive,
-                    ]}>
+                    onPress={() => handleInputChange('type', type.value)}
+                  >
+                    <Text
+                      style={[
+                        styles.typeText,
+                        formData.type === type.value && styles.typeTextActive,
+                      ]}
+                    >
                       {type.label}
                     </Text>
                   </TouchableOpacity>
@@ -198,9 +219,10 @@ const AddPropertyScreen = ({navigation}) => {
               </View>
             </ScrollView>
           </>
-        ))}
+        )}
 
-        {renderFormSection('Property Details', (
+        {renderFormSection(
+          'Property Details',
           <>
             <View style={styles.row}>
               <View style={styles.halfInput}>
@@ -213,14 +235,16 @@ const AddPropertyScreen = ({navigation}) => {
                   keyboardType="numeric"
                 />
               </View>
-              
+
               <View style={styles.halfInput}>
                 <Text style={styles.inputLabel}>Bathrooms</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="0"
                   value={formData.bathrooms}
-                  onChangeText={(value) => handleInputChange('bathrooms', value)}
+                  onChangeText={(value) =>
+                    handleInputChange('bathrooms', value)
+                  }
                   keyboardType="numeric"
                 />
               </View>
@@ -235,9 +259,10 @@ const AddPropertyScreen = ({navigation}) => {
               keyboardType="numeric"
             />
           </>
-        ))}
+        )}
 
-        {renderFormSection('Pricing', (
+        {renderFormSection(
+          'Pricing',
           <>
             <Text style={styles.inputLabel}>Nightly Price (QAR)</Text>
             <TextInput
@@ -247,8 +272,10 @@ const AddPropertyScreen = ({navigation}) => {
               onChangeText={(value) => handleInputChange('price', value)}
               keyboardType="numeric"
             />
-            
-            <Text style={styles.inputLabel}>Monthly Price (QAR) - Optional</Text>
+
+            <Text style={styles.inputLabel}>
+              Monthly Price (QAR) - Optional
+            </Text>
             <TextInput
               style={styles.input}
               placeholder="12000"
@@ -257,9 +284,10 @@ const AddPropertyScreen = ({navigation}) => {
               keyboardType="numeric"
             />
           </>
-        ))}
+        )}
 
-        {renderFormSection('Location', (
+        {renderFormSection(
+          'Location',
           <>
             <Text style={styles.inputLabel}>City</Text>
             <TextInput
@@ -268,7 +296,7 @@ const AddPropertyScreen = ({navigation}) => {
               value={formData.city}
               onChangeText={(value) => handleInputChange('city', value)}
             />
-            
+
             <Text style={styles.inputLabel}>Specific Location/Area</Text>
             <TextInput
               style={styles.input}
@@ -277,32 +305,42 @@ const AddPropertyScreen = ({navigation}) => {
               onChangeText={(value) => handleInputChange('location', value)}
             />
           </>
-        ))}
+        )}
 
-        {renderFormSection('Amenities', (
+        {renderFormSection(
+          'Amenities',
           <View style={styles.amenitiesGrid}>
-            {amenitiesOptions.map(amenity => (
+            {amenitiesOptions.map((amenity) => (
               <TouchableOpacity
                 key={amenity}
                 style={[
                   styles.amenityButton,
-                  formData.amenities.includes(amenity) && styles.amenityButtonActive,
+                  formData.amenities.includes(amenity) &&
+                    styles.amenityButtonActive,
                 ]}
-                onPress={() => toggleAmenity(amenity)}>
-                <Text style={[
-                  styles.amenityText,
-                  formData.amenities.includes(amenity) && styles.amenityTextActive,
-                ]}>
+                onPress={() => toggleAmenity(amenity)}
+              >
+                <Text
+                  style={[
+                    styles.amenityText,
+                    formData.amenities.includes(amenity) &&
+                      styles.amenityTextActive,
+                  ]}
+                >
                   {amenity}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
-        ))}
+        )}
 
-        {renderFormSection('Photos', (
+        {renderFormSection(
+          'Photos',
           <>
-            <TouchableOpacity style={styles.addPhotoButton} onPress={handleImagePicker}>
+            <TouchableOpacity
+              style={styles.addPhotoButton}
+              onPress={handleImagePicker}
+            >
               <Icon name="add-a-photo" size={32} color={COLORS.primary} />
               <Text style={styles.addPhotoText}>Add Photos</Text>
               <Text style={styles.addPhotoSubtext}>
@@ -314,10 +352,14 @@ const AddPropertyScreen = ({navigation}) => {
               <View style={styles.photosGrid}>
                 {formData.photos.map((photo, index) => (
                   <View key={index} style={styles.photoContainer}>
-                    <Image source={{uri: photo.uri}} style={styles.photoPreview} />
+                    <Image
+                      source={{ uri: photo.uri }}
+                      style={styles.photoPreview}
+                    />
                     <TouchableOpacity
                       style={styles.removePhotoButton}
-                      onPress={() => removePhoto(index)}>
+                      onPress={() => removePhoto(index)}
+                    >
                       <Icon name="close" size={16} color="white" />
                     </TouchableOpacity>
                   </View>
@@ -325,12 +367,13 @@ const AddPropertyScreen = ({navigation}) => {
               </View>
             )}
           </>
-        ))}
+        )}
 
         <TouchableOpacity
           style={[styles.submitButton, loading && styles.submitButtonDisabled]}
           onPress={handleSubmit}
-          disabled={loading}>
+          disabled={loading}
+        >
           <Text style={styles.submitButtonText}>
             {loading ? 'Creating Property...' : 'Create Property'}
           </Text>
@@ -378,7 +421,7 @@ const styles = StyleSheet.create({
     marginVertical: SPACING.sm,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.12,
     shadowRadius: 3,
   },

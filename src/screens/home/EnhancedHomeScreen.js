@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,15 +12,21 @@ import {
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useAuth} from '../../auth/AuthContext';
+import { useAuth } from '../../auth/AuthContext';
 import propertiesService from '../../properties/propertiesService';
-import {COLORS, SPACING, FONT_SIZES, CATEGORIES, POPULAR_DESTINATIONS} from '../../shared/constants';
-import {formatPrice} from '../../shared/utils';
+import {
+  COLORS,
+  SPACING,
+  FONT_SIZES,
+  CATEGORIES,
+  POPULAR_DESTINATIONS,
+} from '../../shared/constants';
+import { formatPrice } from '../../shared/utils';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-const EnhancedHomeScreen = ({navigation}) => {
-  const {user} = useAuth();
+const EnhancedHomeScreen = ({ navigation }) => {
+  const { user } = useAuth();
   const [searchLocation, setSearchLocation] = useState('');
   const [checkIn, setCheckIn] = useState(new Date());
   const [checkOut, setCheckOut] = useState(new Date(Date.now() + 86400000));
@@ -58,7 +64,7 @@ const EnhancedHomeScreen = ({navigation}) => {
       guests: guests,
       category: activeCategory !== 'all' ? activeCategory : undefined,
     };
-    navigation.navigate('Properties', {searchParams});
+    navigation.navigate('Properties', { searchParams });
   };
 
   const handleQuickSearch = (location) => {
@@ -69,7 +75,7 @@ const EnhancedHomeScreen = ({navigation}) => {
       checkOut: checkOut.toISOString().split('T')[0],
       guests: guests,
     };
-    navigation.navigate('Properties', {searchParams});
+    navigation.navigate('Properties', { searchParams });
   };
 
   const renderSearchBar = () => (
@@ -93,20 +99,18 @@ const EnhancedHomeScreen = ({navigation}) => {
 
         <TouchableOpacity
           style={styles.searchInput}
-          onPress={() => setShowCheckInPicker(true)}>
+          onPress={() => setShowCheckInPicker(true)}
+        >
           <Text style={styles.inputLabel}>Check in</Text>
-          <Text style={styles.dateText}>
-            {checkIn.toLocaleDateString()}
-          </Text>
+          <Text style={styles.dateText}>{checkIn.toLocaleDateString()}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.searchInput}
-          onPress={() => setShowCheckOutPicker(true)}>
+          onPress={() => setShowCheckOutPicker(true)}
+        >
           <Text style={styles.inputLabel}>Check out</Text>
-          <Text style={styles.dateText}>
-            {checkOut.toLocaleDateString()}
-          </Text>
+          <Text style={styles.dateText}>{checkOut.toLocaleDateString()}</Text>
         </TouchableOpacity>
 
         <View style={styles.searchInput}>
@@ -130,7 +134,7 @@ const EnhancedHomeScreen = ({navigation}) => {
       {/* Quick Search Tags */}
       <View style={styles.quickSearchContainer}>
         <Text style={styles.popularLabel}>Popular:</Text>
-        {['The Pearl', 'West Bay', 'Lusail', 'Flexible dates'].map(tag => (
+        {['The Pearl', 'West Bay', 'Lusail', 'Flexible dates'].map((tag) => (
           <TouchableOpacity
             key={tag}
             style={styles.quickSearchTag}
@@ -141,7 +145,8 @@ const EnhancedHomeScreen = ({navigation}) => {
               } else {
                 handleQuickSearch(tag);
               }
-            }}>
+            }}
+          >
             <Text style={styles.quickSearchText}>{tag}</Text>
           </TouchableOpacity>
         ))}
@@ -152,20 +157,22 @@ const EnhancedHomeScreen = ({navigation}) => {
   const renderCategories = () => (
     <View style={styles.categoriesContainer}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {CATEGORIES.map(category => (
+        {CATEGORIES.map((category) => (
           <TouchableOpacity
             key={category.id}
             style={[
               styles.categoryItem,
               activeCategory === category.id && styles.categoryItemActive,
             ]}
-            onPress={() => setActiveCategory(category.id)}>
+            onPress={() => setActiveCategory(category.id)}
+          >
             <Text style={styles.categoryIcon}>{category.icon}</Text>
             <Text
               style={[
                 styles.categoryName,
                 activeCategory === category.id && styles.categoryNameActive,
-              ]}>
+              ]}
+            >
               {category.name}
             </Text>
           </TouchableOpacity>
@@ -180,18 +187,24 @@ const EnhancedHomeScreen = ({navigation}) => {
       <Text style={styles.sectionSubtitle}>
         Explore our most sought-after locations for your stay
       </Text>
-      
+
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.destinationsContainer}>
           {POPULAR_DESTINATIONS.map((dest, index) => (
             <TouchableOpacity
               key={index}
               style={styles.destinationCard}
-              onPress={() => handleQuickSearch(dest.city)}>
-              <Image source={{uri: dest.image}} style={styles.destinationImage} />
+              onPress={() => handleQuickSearch(dest.city)}
+            >
+              <Image
+                source={{ uri: dest.image }}
+                style={styles.destinationImage}
+              />
               <View style={styles.destinationOverlay}>
                 <Text style={styles.destinationCity}>{dest.city}</Text>
-                <Text style={styles.destinationProperties}>{dest.properties}</Text>
+                <Text style={styles.destinationProperties}>
+                  {dest.properties}
+                </Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -203,7 +216,7 @@ const EnhancedHomeScreen = ({navigation}) => {
   const renderFeaturedProperties = () => (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Featured rentals</Text>
-      
+
       {loading ? (
         <View style={styles.loadingContainer}>
           <Text style={styles.loadingText}>Loading properties...</Text>
@@ -211,23 +224,28 @@ const EnhancedHomeScreen = ({navigation}) => {
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.propertiesContainer}>
-            {featuredProperties.slice(0, 8).map(property => (
+            {featuredProperties.slice(0, 8).map((property) => (
               <TouchableOpacity
                 key={property.id}
                 style={styles.propertyCard}
                 onPress={() =>
-                  navigation.navigate('PropertyDetail', {propertyId: property.id})
-                }>
-                <Image 
+                  navigation.navigate('PropertyDetail', {
+                    propertyId: property.id,
+                  })
+                }
+              >
+                <Image
                   source={{
-                    uri: property.photos?.[0] || 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop'
-                  }} 
-                  style={styles.propertyImage} 
+                    uri:
+                      property.photos?.[0] ||
+                      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop',
+                  }}
+                  style={styles.propertyImage}
                 />
                 <TouchableOpacity style={styles.favoriteButton}>
                   <Icon name="favorite-border" size={20} color="white" />
                 </TouchableOpacity>
-                
+
                 <View style={styles.propertyInfo}>
                   <View style={styles.propertyHeader}>
                     <Text style={styles.propertyTitle} numberOfLines={1}>
@@ -242,17 +260,19 @@ const EnhancedHomeScreen = ({navigation}) => {
                       </View>
                     )}
                   </View>
-                  
+
                   <Text style={styles.propertyLocation}>
                     {property.area}, {property.city}
                   </Text>
-                  
+
                   <Text style={styles.propertyDetails}>
                     {property.bedrooms} bed · {property.bathrooms} bath
                   </Text>
-                  
+
                   <Text style={styles.propertyPrice}>
-                    QAR {property.monthlyPrice?.toLocaleString() || property.price?.toLocaleString()}
+                    QAR{' '}
+                    {property.monthlyPrice?.toLocaleString() ||
+                      property.price?.toLocaleString()}
                     <Text style={styles.priceUnit}> / night</Text>
                   </Text>
                 </View>
@@ -264,7 +284,8 @@ const EnhancedHomeScreen = ({navigation}) => {
 
       <TouchableOpacity
         style={styles.showAllButton}
-        onPress={() => navigation.navigate('Properties')}>
+        onPress={() => navigation.navigate('Properties')}
+      >
         <Text style={styles.showAllButtonText}>Show all properties</Text>
       </TouchableOpacity>
     </View>
@@ -276,9 +297,10 @@ const EnhancedHomeScreen = ({navigation}) => {
       <Text style={styles.hostSubtitle}>
         Earn extra income and unlock new opportunities by sharing your space
       </Text>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.hostButton}
-        onPress={() => navigation.navigate('HostDashboard')}>
+        onPress={() => navigation.navigate('HostDashboard')}
+      >
         <Text style={styles.hostButtonText}>Get started</Text>
       </TouchableOpacity>
     </View>
@@ -358,7 +380,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.lg,
     elevation: 8,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 8,
   },
@@ -428,7 +450,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.border,
     elevation: 1,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.08,
     shadowRadius: 2,
   },
@@ -524,7 +546,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },

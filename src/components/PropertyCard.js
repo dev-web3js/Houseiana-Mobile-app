@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {COLORS, SPACING, FONT_SIZES} from '../shared/constants';
-import {formatPrice} from '../shared/utils';
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { COLORS, SPACING, FONT_SIZES } from "../shared/constants";
+import { formatPrice } from "../shared/utils";
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const PropertyCard = ({
   property,
@@ -37,26 +37,29 @@ const PropertyCard = ({
     <TouchableOpacity
       style={[styles.container, style]}
       onPress={handleCardPress}
-      activeOpacity={0.8}>
-      
+      activeOpacity={0.8}
+
       {/* Property Image */}
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: property.images?.[0] || 'https://via.placeholder.com/300x200?text=No+Image'
+            uri:
+              property.images?.[0] ||
+              "https://via.placeholder.com/300x200?text=No+Image",
           }}
           style={styles.image}
           resizeMode="cover"
         />
-        
+
         {/* Favorite Button */}
         {showFavoriteButton && (
           <TouchableOpacity
             style={styles.favoriteButton}
             onPress={handleFavoritePress}
-            hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
             <Icon
-              name={isFavorite ? 'favorite' : 'favorite-border'}
+              name={isFavorite ? "favorite" : "favorite-border"}
               size={24}
               color={isFavorite ? COLORS.error : COLORS.background}
             />
@@ -94,14 +97,14 @@ const PropertyCard = ({
               <Text style={styles.featureText}>{property.bedrooms} bed</Text>
             </View>
           )}
-          
+
           {property.bathrooms && (
             <View style={styles.feature}>
               <Icon name="bathtub" size={16} color={COLORS.textSecondary} />
               <Text style={styles.featureText}>{property.bathrooms} bath</Text>
             </View>
           )}
-          
+
           {property.guests && (
             <View style={styles.feature}>
               <Icon name="people" size={16} color={COLORS.textSecondary} />
@@ -129,31 +132,31 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     borderRadius: 12,
     marginBottom: SPACING.md,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   imageContainer: {
-    position: 'relative',
+    position: "relative",
     height: 200,
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   favoriteButton: {
-    position: 'absolute',
+    position: "absolute",
     top: SPACING.sm,
     right: SPACING.sm,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     borderRadius: 20,
     padding: SPACING.xs,
   },
   priceBadge: {
-    position: 'absolute',
+    position: "absolute",
     bottom: SPACING.sm,
     left: SPACING.sm,
     backgroundColor: COLORS.primary,
@@ -164,14 +167,14 @@ const styles = StyleSheet.create({
   priceText: {
     color: COLORS.background,
     fontSize: FONT_SIZES.sm,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   detailsContainer: {
     padding: SPACING.md,
   },
   locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: SPACING.xs,
   },
   locationText: {
@@ -182,18 +185,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
     marginBottom: SPACING.sm,
     lineHeight: 22,
   },
   featuresContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: SPACING.sm,
   },
   feature: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginRight: SPACING.md,
   },
   featureText: {
@@ -202,8 +205,8 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
   },
   ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   ratingText: {
     marginLeft: SPACING.xs,

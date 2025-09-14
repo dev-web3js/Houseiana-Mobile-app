@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  View,
-  ActivityIndicator,
-  Text,
-  StyleSheet,
-} from 'react-native';
-import {COLORS, SPACING, FONT_SIZES} from '../shared/constants';
+import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { COLORS, SPACING, FONT_SIZES } from '../shared/constants';
 
 const LoadingSpinner = ({
   size = 'large',
@@ -14,24 +9,12 @@ const LoadingSpinner = ({
   overlay = false,
   style = {},
 }) => {
-  const containerStyle = [
-    styles.container,
-    overlay && styles.overlay,
-    style,
-  ];
+  const containerStyle = [styles.container, overlay && styles.overlay, style];
 
   return (
     <View style={containerStyle}>
-      <ActivityIndicator 
-        size={size} 
-        color={color} 
-        style={styles.spinner}
-      />
-      {text && (
-        <Text style={[styles.text, {color}]}>
-          {text}
-        </Text>
-      )}
+      <ActivityIndicator size={size} color={color} style={styles.spinner} />
+      {text && <Text style={[styles.text, { color }]}>{text}</Text>}
     </View>
   );
 };

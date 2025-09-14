@@ -1,6 +1,6 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {Platform, Alert} from 'react-native';
+import { Platform, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import mobileApiService from './api';
 
@@ -102,7 +102,7 @@ class NotificationService {
   async saveDeviceToken(token) {
     try {
       await AsyncStorage.setItem('device_token', JSON.stringify(token));
-      
+
       // Register token with backend
       try {
         await mobileApiService.registerPushToken(token.token, Platform.OS);
@@ -117,11 +117,11 @@ class NotificationService {
 
   handleNotificationTap(notification) {
     console.log('Notification tapped:', notification);
-    
+
     // Handle different notification types
     if (notification.data) {
-      const {type, id} = notification.data;
-      
+      const { type, id } = notification.data;
+
       switch (type) {
         case 'booking_confirmed':
         case 'booking_cancelled':
@@ -145,30 +145,39 @@ class NotificationService {
   navigateToBooking(bookingId) {
     // This would typically use a navigation service
     // For now, just store the intent
-    AsyncStorage.setItem('pending_navigation', JSON.stringify({
-      screen: 'BookingDetail',
-      params: {bookingId}
-    }));
+    AsyncStorage.setItem(
+      'pending_navigation',
+      JSON.stringify({
+        screen: 'BookingDetail',
+        params: { bookingId },
+      })
+    );
   }
 
   navigateToMessages(conversationId) {
-    AsyncStorage.setItem('pending_navigation', JSON.stringify({
-      screen: 'Messages',
-      params: {conversationId}
-    }));
+    AsyncStorage.setItem(
+      'pending_navigation',
+      JSON.stringify({
+        screen: 'Messages',
+        params: { conversationId },
+      })
+    );
   }
 
   navigateToProperty(propertyId) {
-    AsyncStorage.setItem('pending_navigation', JSON.stringify({
-      screen: 'PropertyDetail',
-      params: {propertyId}
-    }));
+    AsyncStorage.setItem(
+      'pending_navigation',
+      JSON.stringify({
+        screen: 'PropertyDetail',
+        params: { propertyId },
+      })
+    );
   }
 
   // Local notifications
   showLocalNotification(title, message, data = {}) {
     const id = ++this.lastId;
-    
+
     PushNotification.localNotification({
       /* Android Only Properties */
       channelId: data.channelId || 'default',
@@ -206,7 +215,7 @@ class NotificationService {
   // Scheduled notifications
   scheduleNotification(title, message, date, data = {}) {
     const id = ++this.lastId;
-    
+
     PushNotification.localNotificationSchedule({
       /* Android Only Properties */
       channelId: data.channelId || 'default',
@@ -241,7 +250,7 @@ class NotificationService {
   scheduleCheckInReminder(booking) {
     const checkInDate = new Date(booking.checkIn);
     const reminderDate = new Date(checkInDate.getTime() - 24 * 60 * 60 * 1000); // 1 day before
-    
+
     return this.scheduleNotification(
       'Check-in Tomorrow',
       `Your stay at ${booking.property.title} begins tomorrow at 3:00 PM`,
@@ -257,7 +266,7 @@ class NotificationService {
   scheduleCheckOutReminder(booking) {
     const checkOutDate = new Date(booking.checkOut);
     const reminderDate = new Date(checkOutDate.getTime() - 2 * 60 * 60 * 1000); // 2 hours before
-    
+
     return this.scheduleNotification(
       'Check-out Reminder',
       `Don't forget to check out of ${booking.property.title} by 11:00 AM`,
@@ -315,7 +324,7 @@ class NotificationService {
 
   // Utility methods
   cancelNotification(id) {
-    PushNotification.cancelLocalNotifications({id: id.toString()});
+    PushNotification.cancelLocalNotifications({ id: id.toString() });
   }
 
   cancelAllNotifications() {
@@ -367,13 +376,13 @@ class NotificationService {
   // Prompt user to enable notifications
   async promptForPermissions() {
     const enabled = await this.areNotificationsEnabled();
-    
+
     if (!enabled) {
       Alert.alert(
         'Enable Notifications',
         'Stay updated with booking confirmations, messages, and important updates',
         [
-          {text: 'Not Now', style: 'cancel'},
+          { text: 'Not Now', style: 'cancel' },
           {
             text: 'Enable',
             onPress: async () => {
@@ -382,7 +391,7 @@ class NotificationService {
                 Alert.alert(
                   'Notifications Disabled',
                   'To receive important updates, please enable notifications in Settings',
-                  [{text: 'OK'}]
+                  [{ text: 'OK' }]
                 );
               }
             },
@@ -390,7 +399,7 @@ class NotificationService {
         ]
       );
     }
-    
+
     return enabled;
   }
 
